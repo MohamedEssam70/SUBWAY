@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/introScreen"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackgroundWhite">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/background_shape1"
+        android:layout_width="280dp"
+        android:layout_height="280dp"
+        android:layout_marginLeft="-40dp"
+        android:layout_marginTop="-135dp"
+        android:background="@drawable/circle_dark_blue"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/background_shape2"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginLeft="-95dp"
+        android:background="@drawable/circle_dark_blue"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+
+
+<!--    <ImageView-->
+<!--        android:id="@+id/imageView"-->
+<!--        android:layout_width="209dp"-->
+<!--        android:layout_height="262dp"-->
+<!--        android:layout_marginTop="180dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.509"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:srcCompat="@drawable/intro_first_img" />-->
+
+
+<!--    <TextView-->
+<!--        android:id="@+id/textView3"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="460dp"-->
+<!--        android:text="Save your time at the ticket office"-->
+<!--        app:fontFamily="sans-serif-black"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.498"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/textView4"-->
+<!--        android:layout_width="249dp"-->
+<!--        android:layout_height="124dp"-->
+<!--        android:layout_marginTop="28dp"-->
+<!--        android:fontWeight="900"-->
+<!--        android:gravity="center"-->
+<!--        android:text="Add balance to your account in SUBWAY app to use it without need to get a ticker"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.496"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/textView3" />-->
+
+
+
+    <Button
+        android:id="@+id/onboardingSkipButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="28dp"
+        android:text="Skip"
+        android:textColor="@color/colorTextPrimary"
+        android:background="@color/colorButtonTransparent"
+        app:backgroundTint="@color/colorButtonTransparent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/onboardingNextButton"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginEnd="36dp"
+        android:layout_marginBottom="48dp"
+        android:background="@drawable/circler_button"
+        android:insetLeft="-8dp"
+        android:insetTop="6dp"
+        android:insetRight="0"
+        app:backgroundTint="@color/colorButtonPrimary"
+        app:icon="@drawable/next"
+        app:iconPadding="0dp"
+        app:iconSize="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+    
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/onboardingViewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+    
+    <LinearLayout
+        android:id="@+id/onboardingIndicatorsDots"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="150dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="@id/onboardingNextButton"
+        app:layout_constraintEnd_toStartOf="@id/onboardingNextButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/onboardingNextButton"/>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,5 +10,20 @@
     <color name="main_bg">#FFFFFFFF</color>
 
     <color name="darkBlue">#1F2944</color>
+    
+    
+    <!--    Background Colors   -->
+    <color name="colorBackgroundPrimary">#1F2944</color>
+    <color name="colorBackgroundPrimaryShadowy">#751F2944</color>
+    <color name="colorBackgroundWhite">#FFFFFFFF</color>
+
+    <!--    Buttons Colors   -->
+    <color name="colorButtonTransparent">#00FFFFFF</color>
+    <color name="colorButtonPrimary">#1F2944</color>
+
+    <!--    Text Colors   -->
+    <color name="colorTextPrimary">#000000</color>
+
+
 
 </resources>

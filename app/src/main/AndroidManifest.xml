@@ -23,6 +23,11 @@
             android:name=".MainActivity"
             android:exported="true">
         </activity>
+        <activity
+            android:name=".Onboarding"
+            android:exported="true"
+            android:theme="@style/Theme.Onboarding">
+        </activity>
     </application>
 
 </manifest>

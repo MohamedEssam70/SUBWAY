@@ -10,6 +10,7 @@
         <entry key="..\:/AndroidProjects/SUBWAY/app/src/main/res/drawable/ic_intro_second_img.xml" value="0.1495" />
         <entry key="..\:/AndroidProjects/SUBWAY/app/src/main/res/drawable/ic_launcher.xml" value="0.1205" />
         <entry key="..\:/AndroidProjects/SUBWAY/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1205" />
+        <entry key="..\:/AndroidProjects/SUBWAY/app/src/main/res/drawable/ic_next_arrow_forward_white.xml" value="0.1425" />
         <entry key="..\:/AndroidProjects/SUBWAY/app/src/main/res/drawable/intro_first_img.xml" value="0.1495" />
         <entry key="..\:/AndroidProjects/SUBWAY/app/src/main/res/drawable/onboarding_indicator_active.xml" value="0.1" />
         <entry key="..\:/AndroidProjects/SUBWAY/app/src/main/res/drawable/onboarding_indicator_inactive.xml" value="0.1" />
@@ -17,7 +18,7 @@
         <entry key="..\:/AndroidProjects/SUBWAY/app/src/main/res/layout/activity_main.xml" value="0.2" />
         <entry key="..\:/AndroidProjects/SUBWAY/app/src/main/res/layout/activity_splach.xml" value="0.12" />
         <entry key="..\:/AndroidProjects/SUBWAY/app/src/main/res/layout/intro01.xml" value="0.33" />
-        <entry key="..\:/AndroidProjects/SUBWAY/app/src/main/res/layout/onboarding.xml" value="0.22" />
+        <entry key="..\:/AndroidProjects/SUBWAY/app/src/main/res/layout/onboarding.xml" value="0.5" />
         <entry key="..\:/AndroidProjects/SUBWAY/app/src/main/res/layout/onboarding_container.xml" value="0.20018115942028986" />
         <entry key="..\:/AndroidProjects/SUBWAY/app/src/main/res/layout/splach2.xml" value="0.25" />
         <entry key="..\:/AndroidProjects/SUBWAY/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1205" />

@@ -14,16 +14,22 @@
     
     <!--    Background Colors   -->
     <color name="colorBackgroundPrimary">#1F2944</color>
-    <color name="colorBackgroundPrimaryShadowy">#751F2944</color>
+    <color name="colorBackgroundPrimaryOpacity45">#751F2944</color>
+    <color name="colorBackgroundPrimaryOpacity20">#331F2944</color>
+    <color name="colorBackgroundPrimaryPale">#3F3D56</color>
     <color name="colorBackgroundWhite">#FFFFFFFF</color>
+    <color name="colorBackgroundSky">#F2F2F2</color>
+    <color name="colorBackgroundGray">#bfbfbf</color>
+    <color name="colorBackgroundTransparent">#00FFFFFF</color>
 
     <!--    Buttons Colors   -->
     <color name="colorButtonTransparent">#00FFFFFF</color>
     <color name="colorButtonPrimary">#1F2944</color>
 
     <!--    Text Colors   -->
-    <color name="colorTextPrimary">#000000</color>
-
+    <color name="colorTextPrimary">#1F2944</color>
+    <color name="colorTextBlack">#000000</color>
+    <color name="colorTextWhite">#FFFFFF</color>
 
 
 </resources>

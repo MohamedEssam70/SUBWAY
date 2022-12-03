@@ -43,7 +43,7 @@ public class Onboarding extends AppCompatActivity {
 
         this.onboardingSkipButton = findViewById(R.id.onboardingSkipButton);
         this.onboardingSkipButton.setOnClickListener(v -> {
-            startActivity(new Intent(Onboarding.this, MainActivity.class));
+            startActivity(new Intent(Onboarding.this, StartupScreen.class));
             finish();
         });
 
@@ -54,7 +54,7 @@ public class Onboarding extends AppCompatActivity {
                 if (onboardingViewPager.getCurrentItem() + 1 < onboardingSetUp.onboardingAdapter.getItemCount()){
                     onboardingViewPager.setCurrentItem(onboardingViewPager.getCurrentItem()+1);
                 } else {
-                    startActivity(new Intent(Onboarding.this, MainActivity.class));
+                    startActivity(new Intent(Onboarding.this, StartupScreen.class));
                     finish();
                 }
                 if (onboardingViewPager.getCurrentItem() + 1 == onboardingSetUp.onboardingAdapter.getItemCount()){

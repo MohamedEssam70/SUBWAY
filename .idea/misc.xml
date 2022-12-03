@@ -4,13 +4,20 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/AndroidProjects/SUBWAY/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1205" />
+        <entry key="..\:/AndroidProjects/SUBWAY/app/src/main/res/drawable/background_circle_shape.xml" value="0.135" />
+        <entry key="..\:/AndroidProjects/SUBWAY/app/src/main/res/drawable/background_circle_shape_20.xml" value="0.135" />
+        <entry key="..\:/AndroidProjects/SUBWAY/app/src/main/res/drawable/background_circle_shape_45.xml" value="0.135" />
         <entry key="..\:/AndroidProjects/SUBWAY/app/src/main/res/drawable/bg.xml" value="0.1" />
+        <entry key="..\:/AndroidProjects/SUBWAY/app/src/main/res/drawable/button_radius_curved.xml" value="0.1425" />
         <entry key="..\:/AndroidProjects/SUBWAY/app/src/main/res/drawable/circle_dark_blue.xml" value="0.1085" />
         <entry key="..\:/AndroidProjects/SUBWAY/app/src/main/res/drawable/circler_button.xml" value="0.1495" />
+        <entry key="..\:/AndroidProjects/SUBWAY/app/src/main/res/drawable/ic_baseline_done_all_24.xml" value="0.135" />
         <entry key="..\:/AndroidProjects/SUBWAY/app/src/main/res/drawable/ic_intro_second_img.xml" value="0.1495" />
         <entry key="..\:/AndroidProjects/SUBWAY/app/src/main/res/drawable/ic_launcher.xml" value="0.1205" />
         <entry key="..\:/AndroidProjects/SUBWAY/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1205" />
         <entry key="..\:/AndroidProjects/SUBWAY/app/src/main/res/drawable/ic_next_arrow_forward_white.xml" value="0.1425" />
+        <entry key="..\:/AndroidProjects/SUBWAY/app/src/main/res/drawable/ic_undraw_subway_bg.xml" value="0.135" />
+        <entry key="..\:/AndroidProjects/SUBWAY/app/src/main/res/drawable/input_area.xml" value="0.1425" />
         <entry key="..\:/AndroidProjects/SUBWAY/app/src/main/res/drawable/intro_first_img.xml" value="0.1495" />
         <entry key="..\:/AndroidProjects/SUBWAY/app/src/main/res/drawable/onboarding_indicator_active.xml" value="0.1" />
         <entry key="..\:/AndroidProjects/SUBWAY/app/src/main/res/drawable/onboarding_indicator_inactive.xml" value="0.1" />
@@ -18,9 +25,14 @@
         <entry key="..\:/AndroidProjects/SUBWAY/app/src/main/res/layout/activity_main.xml" value="0.2" />
         <entry key="..\:/AndroidProjects/SUBWAY/app/src/main/res/layout/activity_splach.xml" value="0.12" />
         <entry key="..\:/AndroidProjects/SUBWAY/app/src/main/res/layout/intro01.xml" value="0.33" />
-        <entry key="..\:/AndroidProjects/SUBWAY/app/src/main/res/layout/onboarding.xml" value="0.5" />
+        <entry key="..\:/AndroidProjects/SUBWAY/app/src/main/res/layout/login.xml" value="0.22" />
+        <entry key="..\:/AndroidProjects/SUBWAY/app/src/main/res/layout/onboarding.xml" value="0.2" />
         <entry key="..\:/AndroidProjects/SUBWAY/app/src/main/res/layout/onboarding_container.xml" value="0.20018115942028986" />
+        <entry key="..\:/AndroidProjects/SUBWAY/app/src/main/res/layout/registration.xml" value="0.25" />
+        <entry key="..\:/AndroidProjects/SUBWAY/app/src/main/res/layout/reset_password.xml" value="0.19010416666666666" />
+        <entry key="..\:/AndroidProjects/SUBWAY/app/src/main/res/layout/reset_password_request.xml" value="0.19010416666666666" />
         <entry key="..\:/AndroidProjects/SUBWAY/app/src/main/res/layout/splach2.xml" value="0.25" />
+        <entry key="..\:/AndroidProjects/SUBWAY/app/src/main/res/layout/start_up.xml" value="0.25" />
         <entry key="..\:/AndroidProjects/SUBWAY/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1205" />
       </map>
     </option>

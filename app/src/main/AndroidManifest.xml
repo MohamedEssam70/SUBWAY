@@ -13,11 +13,7 @@
             android:name=".Splash"
             android:exported="true"
             android:theme="@style/Theme.Splash">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".MainActivity"
@@ -27,6 +23,35 @@
             android:name=".Onboarding"
             android:exported="true"
             android:theme="@style/Theme.Onboarding">
+        </activity>
+        <activity
+            android:name=".StartupScreen"
+            android:exported="true"
+            android:theme="@style/Theme.Onboarding">
+        </activity>
+        <activity
+            android:name=".Login"
+            android:exported="true"
+            android:theme="@style/Theme.LoginNadRegistration">
+        </activity>
+        <activity
+            android:name=".Registration"
+            android:exported="true"
+            android:theme="@style/Theme.LoginNadRegistration">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ResetPasswordRequest"
+            android:exported="true"
+            android:theme="@style/Theme.LoginNadRegistration">
+        </activity>
+        <activity
+            android:name=".ResetPassword"
+            android:exported="true"
+            android:theme="@style/Theme.LoginNadRegistration">
         </activity>
     </application>
 

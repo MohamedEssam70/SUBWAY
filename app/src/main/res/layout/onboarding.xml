@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/introScreen"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackgroundWhite"
+    tools:context=".Onboarding">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/background_shape1"
+        android:layout_width="280dp"
+        android:layout_height="280dp"
+        android:layout_marginLeft="-40dp"
+        android:layout_marginTop="-135dp"
+        android:background="@drawable/circle_dark_blue"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/background_shape2"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginLeft="-95dp"
+        android:background="@drawable/circle_dark_blue"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/onboardingViewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
+    <Button
+        android:id="@+id/onboardingSkipButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="15dp"
+        android:text="Skip"
+        android:textColor="@color/colorTextPrimary"
+        android:background="@color/colorButtonTransparent"
+        app:backgroundTint="@color/colorButtonTransparent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/onboardingNextButton"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginEnd="36dp"
+        android:layout_marginBottom="48dp"
+        android:background="@drawable/circular_button"
+        android:insetLeft="-3dp"
+        android:insetTop="6dp"
+        android:insetRight="0dp"
+        app:backgroundTint="@color/colorButtonPrimary"
+        app:icon="@drawable/ic_next_arrow_forward_white"
+        app:iconSize="20dp"
+        app:tint='@color/colorBackgroundWhite'
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/onboardingIndicatorsDots"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="150dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="@id/onboardingNextButton"
+        app:layout_constraintEnd_toStartOf="@id/onboardingNextButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/onboardingNextButton"/>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

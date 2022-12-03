@@ -1,3 +1,20 @@
 <resources>
     <string name="app_name">SUBWAY</string>
+
+
+    <!--    Onboarding Text    -->
+    <string name="onboardingFirstTitle">Save your time at the ticket office</string>
+    <string name="onboardingSecondTitle">Plan your trip anywhere</string>
+    <string name="onboardingThirdTitle">Pass from ticket checker machines</string>
+
+    <string name="onboardingFirstDescription">Add balance to your account in SUBWAY app to use it without need to get a ticker</string>
+    <string name="onboardingSecondDescription">A trip planner show you how to arrive your destination across metro lines</string>
+    <string name="onboardingThirdDescription">The application uses NFC technology to withdraw money from the yours balance depending on the number of stations.</string>
+
+
+    <!--    Login Text    -->
+    <string name="loginDontHaveAccount"><u>Don’t have account .... Register Now</u></string>
+    <string name="loginForgetPassword"><u>Forget Password</u></string>
+    <string name="signUpBackToLogin"><u>Already have account .... Login Now</u></string>
+    <string name="forgetPasswordBackToLogin"><u>I remember my password .. Back to login</u></string>
 </resources>

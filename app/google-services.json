@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "1093984594392",
-    "project_id": "subway-a7f18",
-    "storage_bucket": "subway-a7f18.appspot.com"
+    "project_number": "22161497954",
+    "project_id": "subway-bb21f",
+    "storage_bucket": "subway-bb21f.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1093984594392:android:ec0abe2fbd45a1da43aaad",
+        "mobilesdk_app_id": "1:22161497954:android:b60e144d5dd0f89864163b",
         "android_client_info": {
           "package_name": "com.example.subway"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1093984594392-stui6mvqoppjrsrfl6vu7hjj8iuaov9v.apps.googleusercontent.com",
+          "client_id": "22161497954-tuo6ib5u32hv3kt7t9ms9lut7u77g80e.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDveNF0AsIsP8jzyuOiXML9MkaSrgq_rwI"
+          "current_key": "AIzaSyA0CVZtJcgG8yNpzWgAKiuZrJeLKZjKGA0"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "1093984594392-stui6mvqoppjrsrfl6vu7hjj8iuaov9v.apps.googleusercontent.com",
+              "client_id": "22161497954-tuo6ib5u32hv3kt7t9ms9lut7u77g80e.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

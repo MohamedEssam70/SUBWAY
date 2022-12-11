@@ -21,14 +21,14 @@ public class Login extends AppCompatActivity {
     private FirebaseAuth auth ;
     private boolean NoShortageData;
 
-    @Override
-    protected void onStart() {
+    /*@Override
+        protected void onStart() {
         super.onStart();
         if(auth.getCurrentUser() != null){
             Toast.makeText(Login.this, "Already logged in !", Toast.LENGTH_SHORT).show();
         }
 
-    }
+    }*/
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -77,7 +77,8 @@ public class Login extends AppCompatActivity {
         forgetPasswordButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Login.this, ResetPasswordRequest.class));
+                Toast.makeText(Login.this, "testt", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(Login.this, ResetPasswordEnterID.class));
             }
         });
     }

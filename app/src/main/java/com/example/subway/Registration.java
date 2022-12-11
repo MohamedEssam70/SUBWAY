@@ -15,10 +15,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.PhoneAuthCredential;
+import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.concurrent.TimeUnit;
 
 public class Registration extends AppCompatActivity {
 
@@ -38,7 +43,7 @@ public class Registration extends AppCompatActivity {
         final TextView goLoginButton = (TextView) findViewById(R.id.signUpBackToLoginButton);
         final Button registerButton = (Button) findViewById(R.id.signUpRegisterButton);
         auth = FirebaseAuth.getInstance();
-        reference = FirebaseDatabase.getInstance().getReference();
+        reference = FirebaseDatabase.getInstance().getReference("user");
         /*
          * Select Data Fields
          * */
@@ -60,7 +65,7 @@ public class Registration extends AppCompatActivity {
                 final String lastNameData = lastName.getText().toString();
                 final String nationalIdData = nationalId.getText().toString();
                 final String passwordData = password.getText().toString();
-                final String phoneNumberData = phoneNumber.getText().toString();
+                final String phoneNumberData = phoneNumber.getText().toString().trim();
                 final String emailData = email.getText().toString();
                 //Check User Enter All Required Data
                 NoShortageData = Authentication.checkRequiredFields(Registration.this,
@@ -74,7 +79,19 @@ public class Registration extends AppCompatActivity {
                     else if(passwordData.length() < 6){
                         Toast.makeText(Registration.this,"Password should be at least 6 characters !!",Toast.LENGTH_SHORT).show();
                     }
+                    else if(phoneNumberData.length()<11){
+                        Toast.makeText(Registration.this,"Enter a valid number!",Toast.LENGTH_SHORT).show();
+                    }
                     else{
+                        /*String _phoneNumber = "+1" + phoneNumberData;
+                        Intent intent = new Intent(getApplicationContext(), ResetPasswordRequest.class);
+                        intent.putExtra("firstName", firstNameData);
+                        intent.putExtra("lastName", lastNameData);
+                        intent.putExtra("nationalId", nationalIdData);
+                        intent.putExtra("password", passwordData);
+                        intent.putExtra("phoneNumber", _phoneNumber);
+                        startActivity(intent);
+                        */
                         registerUser(nationalIdData ,passwordData , firstNameData , lastNameData , phoneNumberData , emailData );
                     }
 
@@ -82,8 +99,6 @@ public class Registration extends AppCompatActivity {
                 }
             }
         });
-
-
 
         /*
          * Sub-Navigation Buttons OnClick Actions
@@ -95,7 +110,6 @@ public class Registration extends AppCompatActivity {
             }
         });
     }
-
     private void registerUser(String nationalIdData, String passwordData , String firstNameData , String lastNameData , String phoneNumberData , String emailData) {
         String nationalIDEmail = nationalIdData + "@metro.eg";
         auth.createUserWithEmailAndPassword(nationalIDEmail,passwordData).addOnCompleteListener(Registration.this , new OnCompleteListener<AuthResult>() {
@@ -103,7 +117,7 @@ public class Registration extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()) {
                     User userStore = new User(firstNameData , lastNameData , nationalIdData , passwordData , phoneNumberData , emailData);
-                    reference.setValue(userStore);
+                    reference.child(auth.getUid()).setValue(userStore);
                     Toast.makeText(Registration.this, "Successful Registeration", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(Registration.this, MainActivity.class));
                     finish();

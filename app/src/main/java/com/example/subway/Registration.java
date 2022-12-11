@@ -38,7 +38,7 @@ public class Registration extends AppCompatActivity {
         final TextView goLoginButton = (TextView) findViewById(R.id.signUpBackToLoginButton);
         final Button registerButton = (Button) findViewById(R.id.signUpRegisterButton);
         auth = FirebaseAuth.getInstance();
-        reference = FirebaseDatabase.getInstance().getReference();
+        reference = FirebaseDatabase.getInstance().getReference("user");
         /*
          * Select Data Fields
          * */
@@ -103,7 +103,7 @@ public class Registration extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()) {
                     User userStore = new User(firstNameData , lastNameData , nationalIdData , passwordData , phoneNumberData , emailData);
-                    reference.setValue(userStore);
+                    reference.child(auth.getUid()).setValue(userStore);
                     Toast.makeText(Registration.this, "Successful Registeration", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(Registration.this, MainActivity.class));
                     finish();

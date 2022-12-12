@@ -19,6 +19,10 @@
         <activity
             android:name=".MainActivity"
             android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".Onboarding"
@@ -39,10 +43,6 @@
             android:name=".Registration"
             android:exported="true"
             android:theme="@style/Theme.LoginNadRegistration">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".ResetPasswordRequest"
@@ -51,11 +51,6 @@
         </activity>
         <activity
             android:name=".ResetPassword"
-            android:exported="true"
-            android:theme="@style/Theme.LoginNadRegistration">
-        </activity>
-        <activity
-            android:name=".ResetPasswordEnterID"
             android:exported="true"
             android:theme="@style/Theme.LoginNadRegistration">
         </activity>

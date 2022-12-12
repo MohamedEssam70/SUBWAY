@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+    <stationsLine1>
+        <item>
+            <id>74100</id>
+            <arrange>1</arrange>
+            <name>New El Marg</name>
+            <intersection></intersection>
+        </item>
+        <item>
+            <id>74101</id>
+            <arrange>2</arrange>
+            <name>El Marg</name>
+            <intersection></intersection>
+        </item>
+        <item>
+            <id>74102</id>
+            <arrange>3</arrange>
+            <name>Ain Shams</name>
+            <intersection></intersection>
+        </item>
+        <item>
+            <id>74103</id>
+            <arrange>4</arrange>
+            <name>Mattareya</name>
+            <intersection></intersection>
+        </item>
+    </stationsLine1>
+</root>

@@ -4,17 +4,16 @@ import android.content.Context;
 import android.content.res.XmlResourceParser;
 import android.util.Log;
 
-import org.xmlpull.v1.XmlPullParserException;
-
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class MetroMapModel {
 
     public MetroMapModel(Context context){
         ArrayList<MetroStationModel> ss = getStationsDataModel(context);
-        Log.e("-*-*-*-*", ss.get(0).getMetroStationName());
+        Log.e("-*-*-*-*", String.valueOf(ss.get(0).getMetroStationId()));
+        if (ss.get(3).getMetroStationIntersection() == null)
+            Log.e("-*-*-*-*", "kkkkkkkkkk");
+        else Log.e("dddddddd","88888888888");
     }
 
     /****METRO LINE 1****/
@@ -31,7 +30,6 @@ public class MetroMapModel {
 
     private ArrayList<MetroStationModel> getStationsDataModel(Context context){
         ArrayList<MetroStationModel> stations = new ArrayList<MetroStationModel>();
-
         XmlResourceParser parser = context.getResources().getXml(R.xml.stations);
         int eventType = -1;
         int myIndex = -1;
@@ -41,7 +39,7 @@ public class MetroMapModel {
             if(eventType == XmlResourceParser.START_TAG){
                 tagName = parser.getName();
                 switch (tagName){
-                    case "item":
+                    case "station":
                         stations.add(new MetroStationModel());
                         myIndex++;
                         break;

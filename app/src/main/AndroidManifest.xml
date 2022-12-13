@@ -54,11 +54,6 @@
             android:exported="true"
             android:theme="@style/Theme.LoginNadRegistration">
         </activity>
-        <activity
-            android:name=".ResetPasswordEnterID"
-            android:exported="true"
-            android:theme="@style/Theme.LoginNadRegistration">
-        </activity>
 
     </application>
 

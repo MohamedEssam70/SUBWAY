@@ -4,19 +4,136 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/darkBlue"
-    tools:context=".MainActivity">
+    android:background="@color/colorBackgroundSky">
 
-    <TextView
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="411dp"
+        android:background="@drawable/ic_undraw_subway_bg"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/loginContext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginTop="180dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.482"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Plan your trip"
+            android:textColor="@color/colorTextPrimary"
+            android:textSize="30dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Where are you heading?"
+            android:textColor="@color/colorTextPrimary"
+            android:textSize="14dp" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+            android:layout_width="260dp"
+            android:layout_height="wrap_content"
+            android:alpha="0.5"
+            app:boxStrokeWidth="0dp"
+            android:ems="10"
+            android:maxLines="1"
+            android:textSize="16dp"
+            android:layout_marginTop="20dp"
+            android:textColorHint="@color/colorTextBlack">
+
+            <AutoCompleteTextView
+                android:id="@+id/fromStationAutoComplete"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/input_area"
+                android:hint="From:"
+                android:outlineAmbientShadowColor="@color/black" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+            android:layout_width="260dp"
+            android:layout_height="wrap_content"
+            android:alpha="0.5"
+            app:boxStrokeWidth="0dp"
+            android:ems="10"
+            android:maxLines="1"
+            android:textSize="16dp"
+            android:layout_marginTop="20dp"
+            android:textColorHint="@color/colorTextBlack">
+
+            <AutoCompleteTextView
+                android:id="@+id/toStationAutoComplete"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/input_area"
+                android:hint="to:"
+                android:outlineAmbientShadowColor="@color/black"/>
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/loginButton"
+        style="@style/Widget.AppCompat.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.905" />
+        android:background="@drawable/button_radius_curved"
+        android:paddingRight="15dp"
+        android:paddingLeft="15dp"
+        android:text="LOGIN"
+        android:textColor="@color/colorTextWhite"
+        android:textSize="14dp"
+        android:textStyle="bold"
+        app:backgroundTint="@color/colorButtonPrimary"
+        android:layout_marginTop="50dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loginContext" />
 
+    <TextView
+        android:id="@+id/loginRegisterButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/loginDontHaveAccount"
+        android:textColor="@color/colorTextPrimary"
+        android:textSize="12dp"
+        android:selectAllOnFocus="false"
+        android:linksClickable="true"
+        android:autoLink="all"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loginButton" />
 
+    <TextView
+        android:id="@+id/loginForgetPasswordButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:text="@string/loginForgetPassword"
+        android:textColor="@color/colorTextPrimary"
+        android:textSize="12dp"
+        android:selectAllOnFocus="false"
+        android:linksClickable="true"
+        android:autoLink="all"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loginRegisterButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

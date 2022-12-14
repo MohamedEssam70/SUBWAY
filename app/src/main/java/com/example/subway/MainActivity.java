@@ -1,6 +1,9 @@
 package com.example.subway;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.annotation.SuppressLint;
@@ -16,36 +19,36 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
-    String[] stations = {"Helwan","Ain-Helwan", "Hadyek-Helwan"};
-    AutoCompleteTextView stationsAutoCompleteTxt;
-    ArrayAdapter<String> adapterStations;
+import com.example.subway.databinding.ActivityMainBinding;
 
+public class MainActivity extends AppCompatActivity {
+    ActivityMainBinding binding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        stationsAutoCompleteTxt = findViewById(R.id.fromStationAutoComplete);
-        adapterStations = new ArrayAdapter<String>(this,R.layout.dropdown_stations,stations);
-        stationsAutoCompleteTxt.setAdapter(adapterStations);
-
-        stationsAutoCompleteTxt.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String station = parent.getItemAtPosition(position).toString();
-                Toast.makeText(getApplicationContext(),"station: "+ station, Toast.LENGTH_SHORT).show();
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+        replaceFragment(new HomeFragment());
+        Toast.makeText(this, "testing", Toast.LENGTH_SHORT).show();
+        binding.bottomNavigationView.setOnItemSelectedListener(item -> {
+            switch (item.getItemId()){
+                case R.id.home:
+                    replaceFragment(new HomeFragment());
+                    break;
+                case R.id.map:
+                    replaceFragment(new mapFragment());
+                    break;
+                case R.id.account:
+                    replaceFragment(new accountFragment());
+                    break;
             }
+            return true;
         });
-        stationsAutoCompleteTxt = findViewById(R.id.toStationAutoComplete);
-        adapterStations = new ArrayAdapter<String>(this,R.layout.dropdown_stations,stations);
-        stationsAutoCompleteTxt.setAdapter(adapterStations);
-
-        stationsAutoCompleteTxt.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String station = parent.getItemAtPosition(position).toString();
-                Toast.makeText(getApplicationContext(),"station: "+ station, Toast.LENGTH_SHORT).show();
-            }
-        });
+    }
+    private void replaceFragment(Fragment fragment){
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_layout, fragment);
+        fragmentTransaction.commit();
     }
 }

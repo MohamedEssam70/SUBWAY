@@ -1,9 +1,12 @@
 package com.example.subway;
 
+import java.util.ArrayList;
+
 public class MetroLineDataModel {
     private String metroLineId;
     private int metroLineLength;
     private double metroLineAverageMovementSpeed;
+    private ArrayList<MetroStationModel> stationsData;
 
     public String getMetroLineId() {
         return metroLineId;
@@ -27,5 +30,13 @@ public class MetroLineDataModel {
 
     public void setMetroLineAverageMovementSpeed(double metroLineAverageMovementSpeed) {
         this.metroLineAverageMovementSpeed = metroLineAverageMovementSpeed;
+    }
+
+    public ArrayList<MetroStationModel> getStationsData() {
+        return stationsData;
+    }
+
+    public void setStationsData(ArrayList<MetroStationModel> stationsData) {
+        this.stationsData = stationsData;
     }
 }

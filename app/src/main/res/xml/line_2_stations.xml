@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+    <stationsLine>
+        <station>
+            <id>2717</id>
+            <arrange>1</arrange>
+            <name>Shubra El Kheima</name>
+            <intersection></intersection>
+        </station>
+        <station>
+            <id>3156</id>
+            <arrange>2</arrange>
+            <name>Koleyet El Zeraa</name>
+            <intersection></intersection>
+        </station>
+        <station>
+            <id>3292</id>
+            <arrange>3</arrange>
+            <name>El Mezallat</name>
+            <intersection></intersection>
+        </station>
+        <station>
+            <id>2868</id>
+            <arrange>4</arrange>
+            <name>El Khalafawy</name>
+            <intersection></intersection>
+        </station>
+        <station>
+            <id>3054</id>
+            <arrange>5</arrange>
+            <name>Saint Theresa</name>
+            <intersection></intersection>
+        </station>
+        <station>
+            <id>3125</id>
+            <arrange>6</arrange>
+            <name>Rod El Farag</name>
+            <intersection></intersection>
+        </station>
+        <station>
+            <id>2966</id>
+            <arrange>7</arrange>
+            <name>Massara</name>
+            <intersection></intersection>
+        </station>
+        <station>
+            <id>1542</id>
+            <arrange>8</arrange>
+            <name>Al Shohadaa</name>
+            <intersection>M1</intersection>
+        </station>
+        <station>
+            <id>3739</id>
+            <arrange>9</arrange>
+            <name>Attaba</name>
+            <intersection>M3</intersection>
+        </station>
+        <station>
+            <id>2921</id>
+            <arrange>10</arrange>
+            <name>Nageeb</name>
+            <intersection></intersection>
+        </station>
+        <station>
+            <id>1834</id>
+            <arrange>11</arrange>
+            <name>El Sadat</name>
+            <intersection>M1</intersection>
+        </station>
+        <station>
+            <id>3469</id>
+            <arrange>12</arrange>
+            <name>Opera</name>
+            <intersection></intersection>
+        </station>
+        <station>
+            <id>3273</id>
+            <arrange>13</arrange>
+            <name>Dokki</name>
+            <intersection></intersection>
+        </station>
+        <station>
+            <id>2713</id>
+            <arrange>14</arrange>
+            <name>El Behoos</name>
+            <intersection></intersection>
+        </station>
+        <station>
+            <id>3404</id>
+            <arrange>15</arrange>
+            <name>Cairo University</name>
+            <intersection>M3</intersection>
+        </station>
+        <station>
+            <id>3472</id>
+            <arrange>16</arrange>
+            <name>Faysal</name>
+            <intersection></intersection>
+        </station>
+        <station>
+            <id>2991</id>
+            <arrange>17</arrange>
+            <name>Giza</name>
+            <intersection></intersection>
+        </station>
+        <station>
+            <id>2839</id>
+            <arrange>18</arrange>
+            <name>Om El Masryeen</name>
+            <intersection></intersection>
+        </station>
+        <station>
+            <id>3393</id>
+            <arrange>19</arrange>
+            <name>Sakyet Mekky</name>
+            <intersection></intersection>
+        </station>
+        <station>
+            <id>2857</id>
+            <arrange>20</arrange>
+            <name>El Moneeb</name>
+            <intersection></intersection>
+        </station>
+    </stationsLine>
+</root>

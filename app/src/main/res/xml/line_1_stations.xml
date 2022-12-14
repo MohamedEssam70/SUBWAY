@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+    <stationsLine>
+        <station>
+            <id>1636</id>
+            <arrange>1</arrange>
+            <name>New El Marg</name>
+            <intersection></intersection>
+        </station>
+        <station>
+            <id>989</id>
+            <arrange>2</arrange>
+            <name>El Marg</name>
+            <intersection></intersection>
+        </station>
+        <station>
+            <id>2528</id>
+            <arrange>3</arrange>
+            <name>Ezbet El Nakhl</name>
+            <intersection></intersection>
+        </station>
+        <station>
+            <id>2324</id>
+            <arrange>4</arrange>
+            <name>Ain Shams</name>
+            <intersection></intersection>
+        </station>
+        <station>
+            <id>1928</id>
+            <arrange>5</arrange>
+            <name>Mattareya</name>
+            <intersection></intersection>
+        </station>
+        <station>
+            <id>2542</id>
+            <arrange>6</arrange>
+            <name>Helmeyet El Zaytoun</name>
+            <intersection></intersection>
+        </station>
+        <station>
+            <id>1574</id>
+            <arrange>7</arrange>
+            <name>Hadayek El Zaytoun</name>
+            <intersection></intersection>
+        </station>
+        <station>
+            <id>1770</id>
+            <arrange>8</arrange>
+            <name>Saray El Qubba</name>
+            <intersection></intersection>
+        </station>
+        <station>
+            <id>1478</id>
+            <arrange>9</arrange>
+            <name>Hammamat El Qubba</name>
+            <intersection></intersection>
+        </station>
+        <station>
+            <id>2567</id>
+            <arrange>10</arrange>
+            <name>Kobry El Qubba</name>
+            <intersection></intersection>
+        </station>
+        <station>
+            <id>2388</id>
+            <arrange>11</arrange>
+            <name>Manshyet El Sadr</name>
+            <intersection></intersection>
+        </station>
+        <station>
+            <id>1319</id>
+            <arrange>12</arrange>
+            <name>El Demerdash</name>
+            <intersection></intersection>
+        </station>
+        <station>
+            <id>2029</id>
+            <arrange>13</arrange>
+            <name>Ghamra</name>
+            <intersection></intersection>
+        </station>
+        <station>
+            <id>1542</id>
+            <arrange>14</arrange>
+            <name>Al Shohadaa</name>
+            <intersection>M1</intersection>
+        </station>
+        <station>
+            <id>1048</id>
+            <arrange>15</arrange>
+            <name>Orabi</name>
+            <intersection></intersection>
+        </station>
+        <station>
+            <id>2098</id>
+            <arrange>16</arrange>
+            <name>Nasser</name>
+            <intersection>M3</intersection>
+        </station>
+        <station>
+            <id>1834</id>
+            <arrange>17</arrange>
+            <name>El Sadat</name>
+            <intersection>M2</intersection>
+        </station>
+        <station>
+            <id>1361</id>
+            <arrange>18</arrange>
+            <name>Saad Zaghloul</name>
+            <intersection></intersection>
+        </station>
+        <station>
+            <id>1590</id>
+            <arrange>19</arrange>
+            <name>Sayeda Zainab</name>
+            <intersection></intersection>
+        </station>
+        <station>
+            <id>1883</id>
+            <arrange>20</arrange>
+            <name>El Malek El Saleh</name>
+            <intersection></intersection>
+        </station>
+        <station>
+            <id>1567</id>
+            <arrange>21</arrange>
+            <name>Mar Girgis</name>
+            <intersection></intersection>
+        </station>
+        <station>
+            <id>2176</id>
+            <arrange>22</arrange>
+            <name>El Zahraa</name>
+            <intersection></intersection>
+        </station>
+        <station>
+            <id>1337</id>
+            <arrange>23</arrange>
+            <name>Dar El Salam</name>
+            <intersection></intersection>
+        </station>
+        <station>
+            <id>2415</id>
+            <arrange>24</arrange>
+            <name>Hadayek El Maadi</name>
+            <intersection></intersection>
+        </station>
+        <station>
+            <id>1581</id>
+            <arrange>25</arrange>
+            <name>El Maadi</name>
+            <intersection></intersection>
+        </station>
+        <station>
+            <id>1465</id>
+            <arrange>26</arrange>
+            <name>Sakanat El Maadi</name>
+            <intersection></intersection>
+        </station>
+        <station>
+            <id>1364</id>
+            <arrange>27</arrange>
+            <name>Tura El Balad</name>
+            <intersection></intersection>
+        </station>
+        <station>
+            <id>2675</id>
+            <arrange>28</arrange>
+            <name>Kozzika</name>
+            <intersection></intersection>
+        </station>
+        <station>
+            <id>2515</id>
+            <arrange>29</arrange>
+            <name>Tura El Asmant</name>
+            <intersection></intersection>
+        </station>
+        <station>
+            <id>2286</id>
+            <arrange>30</arrange>
+            <name>El Maasara</name>
+            <intersection></intersection>
+        </station>
+        <station>
+            <id>1996</id>
+            <arrange>31</arrange>
+            <name>Hadayek Helwan</name>
+            <intersection></intersection>
+        </station>
+        <station>
+            <id>843</id>
+            <arrange>32</arrange>
+            <name>Wadi Hof</name>
+            <intersection></intersection>
+        </station>
+        <station>
+            <id>743</id>
+            <arrange>33</arrange>
+            <name>Helwan University</name>
+            <intersection></intersection>
+        </station>
+        <station>
+            <id>966</id>
+            <arrange>34</arrange>
+            <name>Ain Helwan</name>
+            <intersection></intersection>
+        </station>
+        <station>
+            <id>1219</id>
+            <arrange>35</arrange>
+            <name>Helwan</name>
+            <intersection></intersection>
+        </station>
+    </stationsLine>
+</root>

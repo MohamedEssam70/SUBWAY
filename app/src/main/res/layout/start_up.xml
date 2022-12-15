@@ -71,7 +71,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="15dp"
-                android:text="Pay your tickit using NFC technology"
+                android:text="Pay your ticket using NFC technology"
                 android:textColor="@color/colorTextPrimary"
                 android:textSize="18dp"
                 android:textStyle="bold" />

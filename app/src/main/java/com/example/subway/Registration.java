@@ -71,9 +71,7 @@ public class Registration extends AppCompatActivity {
                 NoShortageData = Authentication.checkRequiredFields(Registration.this,
                         firstNameData, lastNameData, nationalIdData, passwordData, phoneNumberData);
                 if (NoShortageData){
-                    /*Map<String, Object> user = new HashMap<>();
-                    user.put("first_name", firstNameData);*/
-                    if(nationalIdData.length() < 14){
+                    if(Authentication.checkNationalId(nationalIdData)){
                         Toast.makeText(Registration.this,"Incorrect National ID",Toast.LENGTH_SHORT).show();
                     }
                     else if(passwordData.length() < 6){

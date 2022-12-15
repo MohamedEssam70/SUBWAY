@@ -44,6 +44,7 @@
                     android:background="@drawable/ic_baseline_account_balance_wallet_24" />
 
                 <TextView
+                    android:id="@+id/balance"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="15dp"
@@ -67,9 +68,10 @@
             app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
             <ImageView
+                android:layout_marginTop="3dp"
                 android:id="@+id/circleTripStatus"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
                 android:background="@drawable/ic_baseline_circle_green_24" />
 
             <TextView
@@ -158,7 +160,7 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/loginButton"
+            android:id="@+id/planButton"
             style="@style/Widget.AppCompat.Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -1,10 +1,8 @@
 package com.example.subway;
 
 import android.content.Context;
-import android.content.res.XmlResourceParser;
-import android.util.Log;
 
-import java.util.ArrayList;
+import com.example.subway.Helpers.DBHelper;
 
 public class MetroMapModel {
     private final Context context;

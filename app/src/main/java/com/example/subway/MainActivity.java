@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         else {
             textView.setText("");
             for(MetroStationModel s: filtered) {
-                textView.setText(textView.getText() + ", " + s.getMetroStationName());
+                textView.setText(textView.getText() + "\n" + s.getMetroStationName() + ": " + s.getMetroStationLines().get(0).sort);
             }
         }
     }

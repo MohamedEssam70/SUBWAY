@@ -2,31 +2,35 @@ package com.example.subway;
 
 import androidx.annotation.NonNull;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import org.json.JSONObject;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class MetroStationModel {
     private int metroStationId;
-    private int metroStationLineRelationship;
     private String metroStationName;
-    private int metroStationIntersection;
-    private int metroStationLine;
+    private List<LineModel> metroStationLines;
 
-    public MetroStationModel(int id, String metroStationName, int metroStationLineRelationship, int metroStationIntersection, int metroStationLine) {
+    public MetroStationModel(int id, String metroStationName, List<LineModel> metroStationLine) {
         this.metroStationId = id;
-        this.metroStationLineRelationship = metroStationLineRelationship;
         this.metroStationName = metroStationName;
-        this.metroStationIntersection = metroStationIntersection;
-        this.metroStationLine = metroStationLine;
+        this.metroStationLines = metroStationLine;
     }
 
-    public MetroStationModel(String metroStationName, int metroStationLineRelationship, int metroStationIntersection, int metroStationLine) {
-        this.metroStationLineRelationship = metroStationLineRelationship;
+    public MetroStationModel(int id, String metroStationName, String metroStationLinesJson) {
+        this.metroStationId = id;
         this.metroStationName = metroStationName;
-        this.metroStationIntersection = metroStationIntersection;
-        this.metroStationLine = metroStationLine;
+        setLinesJson(metroStationLinesJson);
+    }
+
+    public MetroStationModel(String metroStationName, List<LineModel> metroStationLine) {
+        this.metroStationName = metroStationName;
+        this.metroStationLines = metroStationLine;
     }
 
     public int getMetroStationId() {
@@ -37,14 +41,6 @@ public class MetroStationModel {
         this.metroStationId = metroStationId;
     }
 
-    public int getMetroStationLineRelationship() {
-        return metroStationLineRelationship;
-    }
-
-    public void setMetroStationLineRelationship(int metroStationLineRelationship) {
-        this.metroStationLineRelationship = metroStationLineRelationship;
-    }
-
     public String getMetroStationName() {
         return metroStationName;
     }
@@ -53,20 +49,21 @@ public class MetroStationModel {
         this.metroStationName = metroStationName;
     }
 
-    public int getMetroStationIntersection() {
-        return metroStationIntersection;
+    public List<LineModel> getMetroStationLines() {
+        return metroStationLines;
     }
 
-    public void setMetroStationIntersection(int metroStationIntersection) {
-        this.metroStationIntersection = metroStationIntersection;
+    public void setMetroStationLines(List<LineModel> metroStationLines) {
+        this.metroStationLines = metroStationLines;
     }
 
-    public int getMetroStationLine() {
-        return metroStationLine;
+    public String getLinesJson() {
+        return new Gson().toJson(metroStationLines);
     }
 
-    public void setMetroStationLine(int metroStationLine) {
-        this.metroStationLine = metroStationLine;
+    public void setLinesJson(String json) {
+        Type listType = new TypeToken<ArrayList<LineModel>>(){}.getType();
+        this.metroStationLines = new Gson().fromJson(json, listType);
     }
 
     @NonNull

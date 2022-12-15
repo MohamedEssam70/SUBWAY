@@ -67,6 +67,7 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         View view = inflater.inflate(R.layout.fragment_home,container,false);
         stationsAutoCompleteTxt = view.findViewById(R.id.fromStationAutoComplete);
         adapterStations = new ArrayAdapter<String>(getActivity(), R.layout.dropdown_stations,stations);

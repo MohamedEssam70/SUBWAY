@@ -2,6 +2,7 @@ package com.example.subway;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -87,8 +88,11 @@ public class Login extends AppCompatActivity {
         auth.signInWithEmailAndPassword(loginIDEmail , loginPassword).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
             @Override
             public void onSuccess(AuthResult authResult) {
+                    String userUID = authResult.getUser().getUid().toString();
                     Toast.makeText(Login.this, "Successful Login", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(Login.this, MainActivity.class));
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    intent.putExtra("userID", userUID);
+                    startActivity(intent);
                     finish();
 
             }

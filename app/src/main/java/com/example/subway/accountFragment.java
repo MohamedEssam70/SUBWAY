@@ -2,11 +2,22 @@ package com.example.subway;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -14,7 +25,13 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class accountFragment extends Fragment {
-
+    DatabaseReference databaseUser;
+    String userUID = MainActivity.userUID;
+    String firstName;
+    String lastName;
+    String email;
+    String phoneNumber;
+    String nationalId;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -58,7 +75,44 @@ public class accountFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_account,container,false);
+        ImageView pp = (ImageView) view.findViewById(R.id.imageView2);
+        pp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getActivity(), "image is working", Toast.LENGTH_SHORT).show();
+            }
+        });
+        TextView userNameTxt = (TextView) view.findViewById(R.id.userName);
+        TextView emailTxt = (TextView) view.findViewById(R.id.email);
+        TextView phoneNumberTxt = (TextView) view.findViewById(R.id.phoneNumber);
+        TextView nationalIdTxt = (TextView) view.findViewById(R.id.nationalID);
+
+        databaseUser = FirebaseDatabase.getInstance().getReference("user");
+        databaseUser.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    firstName = snapshot.child(userUID).child("firstName").getValue(String.class);
+                    lastName = snapshot.child(userUID).child("lastName").getValue(String.class);
+                    email = snapshot.child(userUID).child("email").getValue(String.class);
+                    phoneNumber = snapshot.child(userUID).child("phoneNumberData").getValue(String.class);
+                    nationalId = snapshot.child(userUID).child("nationalIdData").getValue(String.class);
+                    userNameTxt.setText("Hey, "+firstName+" "+lastName);
+                    emailTxt.setText(email);
+                    nationalIdTxt.setText(nationalId);
+                    phoneNumberTxt.setText(phoneNumber);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+
+        });
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_account, container, false);
+        return view;
     }
 }

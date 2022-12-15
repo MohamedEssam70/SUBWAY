@@ -78,7 +78,7 @@ public class Login extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(Login.this, "testt", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(Login.this, ResetPasswordEnterID.class));
+                startActivity(new Intent(Login.this, ResetPasswordRequest.class));
             }
         });
     }

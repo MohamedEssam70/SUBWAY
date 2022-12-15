@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.subway">
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/launcher_icon"
@@ -18,48 +20,42 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:exported="true">
-        </activity>
+            android:exported="true"></activity>
         <activity
             android:name=".Onboarding"
             android:exported="true"
-            android:theme="@style/Theme.Onboarding">
-        </activity>
+            android:theme="@style/Theme.Onboarding"></activity>
         <activity
             android:name=".StartupScreen"
             android:exported="true"
-            android:theme="@style/Theme.Onboarding">
-        </activity>
+            android:theme="@style/Theme.Onboarding"></activity>
         <activity
             android:name=".Login"
             android:exported="true"
-            android:theme="@style/Theme.LoginNadRegistration">
-        </activity>
+            android:theme="@style/Theme.LoginNadRegistration"></activity>
         <activity
             android:name=".Registration"
             android:exported="true"
             android:theme="@style/Theme.LoginNadRegistration">
+
+        </activity>
+        <activity
+            android:name=".ResetPasswordRequest"
+            android:exported="true"
+            android:theme="@style/Theme.LoginNadRegistration"></activity>
+        <activity
+            android:name=".ResetPassword"
+            android:exported="true"
+            android:theme="@style/Theme.LoginNadRegistration"></activity>
+        <activity
+            android:name=".Profile"
+            android:exported="true"
+            android:theme="@style/Theme.Subway">>
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ResetPasswordRequest"
-            android:exported="true"
-            android:theme="@style/Theme.LoginNadRegistration">
-        </activity>
-        <activity
-            android:name=".ResetPassword"
-            android:exported="true"
-            android:theme="@style/Theme.LoginNadRegistration">
-        </activity>
-        <activity
-            android:name=".ResetPasswordEnterID"
-            android:exported="true"
-            android:theme="@style/Theme.LoginNadRegistration">
-        </activity>
-
     </application>
 
 

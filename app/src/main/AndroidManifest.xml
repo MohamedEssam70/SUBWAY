@@ -50,12 +50,6 @@
             android:name=".ResetPassword"
             android:exported="true"
             android:theme="@style/Theme.LoginNadRegistration"></activity>
-        <activity
-            android:name=".Profile"
-            android:exported="true"
-            android:theme="@style/Theme.Subway">>
-
-        </activity>
     </application>
 
 

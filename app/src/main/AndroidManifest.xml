@@ -37,7 +37,10 @@
             android:name=".Registration"
             android:exported="true"
             android:theme="@style/Theme.LoginNadRegistration">
-
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".ResetPasswordRequest"
@@ -51,10 +54,7 @@
             android:name=".Profile"
             android:exported="true"
             android:theme="@style/Theme.Subway">>
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
         </activity>
     </application>
 

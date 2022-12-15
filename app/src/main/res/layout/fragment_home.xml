@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorBackgroundSky">
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="340dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/button_radius_curved"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.492"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="Balance"
+                android:textColor="@color/white"
+                android:textSize="30dp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:background="@drawable/ic_baseline_account_balance_wallet_24" />
+
+                <TextView
+                    android:id="@+id/balance"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="15dp"
+                    android:text="300"
+                    android:textColor="@color/white"
+                    android:textSize="18dp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="302dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="24dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="@+id/linearLayout"
+            app:layout_constraintStart_toStartOf="@+id/linearLayout"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+            <ImageView
+                android:layout_marginTop="3dp"
+                android:id="@+id/circleTripStatus"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:background="@drawable/ic_baseline_circle_green_24" />
+
+            <TextView
+                android:id="@+id/textTripStatus"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="15dp"
+                android:text="On going trip"
+                android:textColor="@color/colorTextPrimary"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/loginContext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="15dp"
+            android:layout_marginTop="32dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.448"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Plan your trip"
+                android:textColor="@color/colorTextPrimary"
+                android:textSize="25dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Where are you heading?"
+                android:textColor="@color/colorTextPrimary"
+                android:textSize="12dp" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                android:layout_width="260dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:alpha="0.5"
+                android:ems="10"
+                android:maxLines="1"
+                android:textColorHint="@color/colorTextBlack"
+                android:textSize="16dp"
+                app:boxStrokeWidth="0dp">
+
+                <AutoCompleteTextView
+                    android:id="@+id/fromStationAutoComplete"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/input_area"
+                    android:hint="From:"
+                    android:outlineAmbientShadowColor="@color/black" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                android:layout_width="260dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:alpha="0.5"
+                android:ems="10"
+                android:maxLines="1"
+                android:textColorHint="@color/colorTextBlack"
+                android:textSize="16dp"
+                app:boxStrokeWidth="0dp">
+
+                <AutoCompleteTextView
+                    android:id="@+id/toStationAutoComplete"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/input_area"
+                    android:hint="to:"
+                    android:outlineAmbientShadowColor="@color/black" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/planButton"
+            style="@style/Widget.AppCompat.Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:background="@drawable/button_radius_curved"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:text="Plan"
+            android:textColor="@color/colorTextWhite"
+            android:textSize="14dp"
+            android:textStyle="bold"
+            app:backgroundTint="@color/colorButtonPrimary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/loginContext" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

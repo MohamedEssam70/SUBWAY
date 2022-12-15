@@ -10,7 +10,9 @@
     <color name="main_bg">#FFFFFFFF</color>
 
     <color name="darkBlue">#1F2944</color>
-    
+    <color name="colorPrimary">#512da8</color>
+    <color name="colorPrimaryDark">#512da8</color>
+    <color name="colorAccent">#8165c0</color>
     
     <!--    Background Colors   -->
     <color name="colorBackgroundPrimary">#1F2944</color>

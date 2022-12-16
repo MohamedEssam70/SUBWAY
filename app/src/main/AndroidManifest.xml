@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Subway">
         <activity
-            android:name=".tripHistory"
+            android:name=".TripHistory"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

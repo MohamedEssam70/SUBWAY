@@ -27,7 +27,6 @@ public class tripHistory extends AppCompatActivity {
         trips = new ArrayList<>();
         String userUID = MainActivity.userUID;
         databasetrips = FirebaseDatabase.getInstance().getReference("trips").child(userUID);
-        addTrip("18/12/2022","Helwan","Maadi","5");
     }
 
     @Override

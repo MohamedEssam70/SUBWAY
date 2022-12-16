@@ -3,8 +3,9 @@ package com.example.subway.Helpers;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
+import io.requery.android.database.sqlite.SQLiteDatabase;
+import io.requery.android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.example.subway.LineModel;
 import com.example.subway.MetroStationModel;
@@ -57,6 +58,7 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put(STATION_NAME_COL, metroStationModel.getMetroStationName());
         contentValues.put(STATION_LINES_COL, metroStationModel.getLinesJson());
         db.insert(TABLE_NAME, null, contentValues);
+        db.close();
         return true;
     }
 
@@ -77,28 +79,36 @@ public class DBHelper extends SQLiteOpenHelper {
             }
         }
         result.close();
+        db.close();
         return station;
     }
 
     public ArrayList<MetroStationModel> getStationInLine(int line) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor result = db.rawQuery( "select * from "+TABLE_NAME, null );//+" WHERE json_extract("+STATION_LINES_COL+", '$.line') = "+line
         ArrayList<MetroStationModel> stations = new ArrayList<>();
-        result.moveToFirst();
-        while(!result.isAfterLast()){
-            try {
-                stations.add(new MetroStationModel(
-                        result.getInt(result.getColumnIndexOrThrow(STATION_ID_COL)),
-                        result.getString(result.getColumnIndexOrThrow(STATION_NAME_COL)),
-                        result.getString(result.getColumnIndexOrThrow(STATION_LINES_COL))
-                ));
-            } catch (Exception e) {
-                e.printStackTrace();
+        try {
+            Cursor result = db.rawQuery(
+                    "select t.* from "+TABLE_NAME+" t"+
+                    " JOIN json_each(t."+STATION_LINES_COL+") j"+
+                    " WHERE json_extract(j.value, '$.line') = "+line, null );
+            result.moveToFirst();
+            while(!result.isAfterLast()){
+                try {
+                    stations.add(new MetroStationModel(
+                            result.getInt(result.getColumnIndexOrThrow(STATION_ID_COL)),
+                            result.getString(result.getColumnIndexOrThrow(STATION_NAME_COL)),
+                            result.getString(result.getColumnIndexOrThrow(STATION_LINES_COL))
+                    ));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                result.moveToNext();
             }
-            result.moveToNext();
+            result.close();
+            db.close();
+        } catch (Exception e) {
+            Log.e("++++++ ", e.getMessage());
         }
-        result.close();
-
         return stations;
     }
 }

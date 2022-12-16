@@ -36,7 +36,6 @@ public class MetroStationModel {
     public int getMetroStationId() {
         return metroStationId;
     }
-
     public void setMetroStationId(int metroStationId) {
         this.metroStationId = metroStationId;
     }
@@ -44,7 +43,6 @@ public class MetroStationModel {
     public String getMetroStationName() {
         return metroStationName;
     }
-
     public void setMetroStationName(String metroStationName) {
         this.metroStationName = metroStationName;
     }
@@ -52,7 +50,6 @@ public class MetroStationModel {
     public List<LineModel> getMetroStationLines() {
         return metroStationLines;
     }
-
     public void setMetroStationLines(List<LineModel> metroStationLines) {
         this.metroStationLines = metroStationLines;
     }

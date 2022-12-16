@@ -1,5 +1,6 @@
 package com.example.subway;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -10,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -76,11 +78,11 @@ public class accountFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_account,container,false);
-        ImageView pp = (ImageView) view.findViewById(R.id.imageView2);
-        pp.setOnClickListener(new View.OnClickListener() {
+        LinearLayout tripsHistory = (LinearLayout) view.findViewById(R.id.tripHistory);
+        tripsHistory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "image is working", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getActivity(), tripHistory.class));
             }
         });
         TextView userNameTxt = (TextView) view.findViewById(R.id.userName);

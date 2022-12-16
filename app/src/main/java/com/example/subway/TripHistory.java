@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -17,7 +18,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class TripHistory extends AppCompatActivity {
-    int i;
     ListView tripsListView;
     DatabaseReference databasetrips;
     LinkedList<Trip> tripLinkedList;
@@ -26,11 +26,12 @@ public class TripHistory extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trip_history);
-        tripsListView = (ListView) findViewById(R.id.tripHistoryList);
+        tripsListView = findViewById(R.id.tripHistoryList);
         tripLinkedList = new LinkedList<>();
         String userUID = MainActivity.userUID;
         databasetrips = FirebaseDatabase.getInstance().getReference("trips").child(userUID);
     }
+
 
     @Override
     protected void onStart() {
@@ -50,14 +51,8 @@ public class TripHistory extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                Toast.makeText(TripHistory.this, "an error occurred", Toast.LENGTH_SHORT).show();
             }
         });
-    }
-
-    private void addTrip(String date, String startStation, String endStation, String cost) {
-        String id = databasetrips.push().getKey();
-        Trip trip = new Trip(id, startStation, endStation, cost, date);
-        databasetrips.child(id).setValue(trip);
     }
 }

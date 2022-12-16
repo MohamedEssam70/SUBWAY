@@ -4,7 +4,14 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:layout_margin="25dp">
-
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Trip history"
+        android:textSize="30sp"
+        android:textColor="@color/colorBackgroundPrimary"
+        android:textStyle="bold"
+        android:layout_marginBottom="20dp"/>
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"

@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -20,10 +21,10 @@ import com.google.firebase.database.ValueEventListener;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link accountFragment#newInstance} factory method to
+ * Use the {@link AccountFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class accountFragment extends Fragment {
+public class AccountFragment extends Fragment {
     DatabaseReference databaseUser;
     String userUID = MainActivity.userUID;
     String firstName;
@@ -40,7 +41,7 @@ public class accountFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public accountFragment() {
+    public AccountFragment() {
         // Required empty public constructor
     }
 
@@ -53,8 +54,8 @@ public class accountFragment extends Fragment {
      * @return A new instance of fragment accountFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static accountFragment newInstance(String param1, String param2) {
-        accountFragment fragment = new accountFragment();
+    public static AccountFragment newInstance(String param1, String param2) {
+        AccountFragment fragment = new AccountFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -82,6 +83,7 @@ public class accountFragment extends Fragment {
                 startActivity(new Intent(getActivity(), TripHistory.class));
             }
         });
+
         TextView userNameTxt = (TextView) view.findViewById(R.id.userName);
         TextView emailTxt = (TextView) view.findViewById(R.id.email);
         TextView phoneNumberTxt = (TextView) view.findViewById(R.id.phoneNumber);
@@ -106,7 +108,7 @@ public class accountFragment extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                Toast.makeText(getActivity(), "Failed to get Data", Toast.LENGTH_SHORT).show();
             }
 
         });

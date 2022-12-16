@@ -51,7 +51,7 @@ public class TripHistory extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(TripHistory.this, "an error occurred", Toast.LENGTH_SHORT).show();
+                Toast.makeText(TripHistory.this, "Failed to get trips", Toast.LENGTH_SHORT).show();
             }
         });
     }

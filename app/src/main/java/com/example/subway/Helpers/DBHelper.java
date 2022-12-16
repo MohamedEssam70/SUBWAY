@@ -30,20 +30,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 "create table "+TABLE_NAME+" " +
                         "(id integer primary key, name text,lines text)"
         );
-
-        List<LineModel> lineModels = new ArrayList<>();
-        lineModels.add(new LineModel(1, 1));
-        MetroStationModel metroStationModel = new MetroStationModel("New El Marg", lineModels);
-        db.execSQL("INSERT INTO " +TABLE_NAME+ "("+STATION_NAME_COL+", "+STATION_LINES_COL+")" +
-                " VALUES ('"+metroStationModel.getMetroStationName()+"', '"+metroStationModel.getLinesJson()+"')");
-
-
-        lineModels = new ArrayList<>();
-        lineModels.add(new LineModel(1, 14));
-        lineModels.add(new LineModel(2, 8));
-        metroStationModel = new MetroStationModel("Al Shohadaa", lineModels);
-        db.execSQL("INSERT INTO " +TABLE_NAME+ "("+STATION_NAME_COL+", "+STATION_LINES_COL+")" +
-                " VALUES ('"+metroStationModel.getMetroStationName()+"', '"+metroStationModel.getLinesJson()+"')");
+        ExecSQL.fetch(db);
     }
 
     @Override
@@ -91,6 +78,37 @@ public class DBHelper extends SQLiteOpenHelper {
                     "select t.* from "+TABLE_NAME+" t"+
                     " JOIN json_each(t."+STATION_LINES_COL+") j"+
                     " WHERE json_extract(j.value, '$.line') = "+line, null );
+            result.moveToFirst();
+            while(!result.isAfterLast()){
+                try {
+                    stations.add(new MetroStationModel(
+                            result.getInt(result.getColumnIndexOrThrow(STATION_ID_COL)),
+                            result.getString(result.getColumnIndexOrThrow(STATION_NAME_COL)),
+                            result.getString(result.getColumnIndexOrThrow(STATION_LINES_COL))
+                    ));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                result.moveToNext();
+            }
+            result.close();
+            db.close();
+        } catch (Exception e) {
+            Log.e("++++++ ", e.getMessage());
+        }
+        return stations;
+    }
+
+    public ArrayList<MetroStationModel> getIntersectionStation(int firstLine, int secondLine) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        ArrayList<MetroStationModel> stations = new ArrayList<>();
+        try {
+            Cursor result = db.rawQuery(
+                    "select t.* from "+TABLE_NAME+" t"+
+                            " JOIN json_each(t."+STATION_LINES_COL+") j"+
+                            " WHERE json_extract(j.value, '$.line') = "+firstLine+
+                            " OR json_extract(j.value, '$.line') = "+secondLine+
+                            " GROUP BY t.id having count(*) > 1", null );
             result.moveToFirst();
             while(!result.isAfterLast()){
                 try {

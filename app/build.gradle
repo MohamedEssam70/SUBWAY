@@ -45,4 +45,5 @@ dependencies {
     implementation 'androidx.room:room-runtime:2.4.3'
     implementation 'com.google.code.gson:gson:2.10'
     implementation 'com.github.requery:sqlite-android:3.39.2'
+    implementation 'androidx.work:work-runtime:2.8.0-rc01'
 }

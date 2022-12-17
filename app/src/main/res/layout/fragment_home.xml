@@ -34,8 +34,8 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
                 android:orientation="horizontal">
 
                 <ImageView
@@ -68,10 +68,10 @@
             app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
             <ImageView
-                android:layout_marginTop="3dp"
                 android:id="@+id/circleTripStatus"
                 android:layout_width="22dp"
                 android:layout_height="22dp"
+                android:layout_marginTop="4dp"
                 android:background="@drawable/ic_baseline_circle_green_24" />
 
             <TextView
@@ -81,7 +81,7 @@
                 android:layout_marginStart="15dp"
                 android:text="On going trip"
                 android:textColor="@color/colorTextPrimary"
-                android:textSize="18dp"
+                android:textSize="20dp"
                 android:textStyle="bold" />
         </LinearLayout>
 

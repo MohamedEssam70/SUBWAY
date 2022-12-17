@@ -10,34 +10,45 @@
         android:layout_marginTop="25dp"
         android:layout_marginLeft="25dp"
         android:textColor="@color/white"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
         android:id="@+id/tripDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="TextView" />
-
-    <TextView
-        android:layout_marginLeft="25dp"
-        android:textColor="@color/white"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:id="@+id/tripStartStation"
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:orientation="horizontal">
+        <TextView
+            android:layout_marginLeft="25dp"
+            android:textColor="@color/white"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:id="@+id/tripStartStation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
 
-    <TextView
-        android:layout_marginLeft="25dp"
-        android:textColor="@color/white"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:id="@+id/tripEndStation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="TextView" />
+        <ImageView
+            android:layout_marginTop="2dp"
+            android:layout_width="39dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/ic_baseline_keyboard_double_arrow_right_24"/>
+
+        <TextView
+            android:textColor="@color/white"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:id="@+id/tripEndStation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
+
+    </LinearLayout>
+
     <TextView
         android:layout_marginBottom="25dp"
         android:layout_marginLeft="25dp"
         android:textColor="@color/white"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium.Inverse"
         android:id="@+id/tripCost"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

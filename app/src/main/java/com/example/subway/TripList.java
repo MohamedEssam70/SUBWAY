@@ -34,9 +34,9 @@ public class TripList extends ArrayAdapter<Trip> {
         TextView costTxt = (TextView) listViewItem.findViewById(R.id.tripCost);
         Trip trip = tripList.get(position);
         dateTxt.setText("Date: "+trip.getDate());
-        startStationTxt.setText("from: "+trip.getStartStation());
-        endStationTxt.setText("to: "+trip.getEndStation());
-        costTxt.setText("EGP: "+trip.getCost());
+        startStationTxt.setText(trip.getStartStation());
+        endStationTxt.setText(trip.getEndStation());
+        costTxt.setText("EGP "+trip.getCost());
         return listViewItem;
     }
 }

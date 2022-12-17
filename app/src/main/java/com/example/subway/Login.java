@@ -21,6 +21,7 @@ public class Login extends AppCompatActivity {
     private FirebaseAuth auth ;
     private boolean NoShortageData;
 
+    // to be tested for preventing login from multiple devices
     /*@Override
         protected void onStart() {
         super.onStart();
@@ -55,9 +56,7 @@ public class Login extends AppCompatActivity {
 
                 NoShortageData = Authentication.checkRequiredFields(Login.this, loginIdData, loginPasswordData);
                 if (NoShortageData) {
-                    /*Map<String, Object> user = new HashMap<>();
-                    user.put("first_name", firstNameData);*/
-                    if (loginIdData.length() < 14) {
+                    if (Authentication.checkNationalId(loginIdData)) {
                         Toast.makeText(Login.this, "Incorrect National ID", Toast.LENGTH_SHORT).show();
                     }
                      else {
@@ -78,7 +77,7 @@ public class Login extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(Login.this, "testt", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(Login.this, ResetPasswordRequest.class));
+                startActivity(new Intent(Login.this, ResetPassword.class));
             }
         });
     }

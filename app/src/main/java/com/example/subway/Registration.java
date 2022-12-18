@@ -90,7 +90,12 @@ public class Registration extends AppCompatActivity {
                         intent.putExtra("phoneNumber", _phoneNumber);
                         startActivity(intent);
                         */
-                        registerUser(nationalIdData ,passwordData , firstNameData , lastNameData , phoneNumberData , emailData );
+                        //registerUser(nationalIdData ,passwordData , firstNameData , lastNameData , phoneNumberData , emailData );
+
+                        Intent intent = new Intent(Registration.this, VerifyPhoneNumber.class);
+                        intent.putExtra("phoneNumber", phoneNumberData);
+                        startActivity(intent);
+
                     }
 
 

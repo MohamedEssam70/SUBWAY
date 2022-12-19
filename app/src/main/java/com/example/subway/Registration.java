@@ -2,12 +2,10 @@ package com.example.subway;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +18,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 
+import com.example.subway.Helpers.STATUS;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -30,8 +29,8 @@ import com.google.firebase.database.FirebaseDatabase;
 public class Registration extends AppCompatActivity{
 
     private boolean NoShortageData;
-    private FirebaseAuth auth ;
-    DatabaseReference reference;
+    private FirebaseAuth auth;
+    private DatabaseReference reference;
 
     private LinearLayout registrationProgress;
 
@@ -49,8 +48,8 @@ public class Registration extends AppCompatActivity{
     private String phoneNumberData;
     private String emailData;
 
-    TextView goLoginButton;
-    Button registerButton;
+    private TextView goLoginButton;
+    private Button registerButton;
 
     private final ActivityResultLauncher<Intent> activityForResult =
         registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
@@ -97,7 +96,7 @@ public class Registration extends AppCompatActivity{
          reference = FirebaseDatabase.getInstance().getReference("user");
 
         /**
-         * Disable Registration Process Action
+         * Disable Registration Background Process Action
          * **/
         onCollectData();
 
@@ -130,6 +129,7 @@ public class Registration extends AppCompatActivity{
                     else{
                         Intent intent = new Intent(Registration.this, VerifyPhoneNumber.class);
                         intent.putExtra("phoneNumber", phoneNumberData);
+                        intent.putExtra("status", STATUS.VERIFYNEW);
                         activityForResult.launch(intent);
                     }
                 }
@@ -175,6 +175,7 @@ public class Registration extends AppCompatActivity{
         nationalId.setEnabled(false);
         email.setEnabled(false);
     }
+
     private void onCollectData(){
         registrationProgress.setVisibility(View.GONE);
         firstName.setEnabled(true);

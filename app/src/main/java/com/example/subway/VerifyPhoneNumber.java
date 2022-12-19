@@ -1,5 +1,7 @@
 package com.example.subway;
 
+import static java.lang.Integer.parseInt;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,6 +20,7 @@ import androidx.annotation.RawRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.arch.core.executor.TaskExecutor;
 
+import com.example.subway.Helpers.STATUS;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskExecutors;
 import com.google.firebase.FirebaseException;
@@ -33,49 +36,95 @@ public class VerifyPhoneNumber extends AppCompatActivity {
     private Button askVerify;
     private EditText codeField;
     private TextView resendButton;
+    private TextView backToLoginButton;
     private TextView errorMessages;
+    private TextView contextTitle;
+    private TextView contextSubTitle;
     private ProgressBar progressBar;
+
     private String verificationCodeBySystem;
-    private final FirebaseAuth oAuth = FirebaseAuth.getInstance();
+
+    private FirebaseAuth oAuth;
+
     private CountDownTimer countDownTimer;
-    private Long timeOut = 30L;
+    private Long timeOut;
+
+    private STATUS status;
+    private String phoneNumber;
+    private String id = null;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.verify_phone_number);
 
-        /*
+        /**
+         * Firebase Initialize
+         * * **/
+        oAuth = FirebaseAuth.getInstance();
+
+        /**
          * Select Clickable Items
-         * */
+         * **/
         askVerify = (Button) findViewById(R.id.verifyCodeButton);
         resendButton = (TextView) findViewById(R.id.resendVerifyCode);
+        backToLoginButton = (TextView) findViewById(R.id.backToLoginButton);
 
-        /*
+        /**
          * Select Code Field
-         * */
+         * **/
         codeField = (EditText) findViewById(R.id.verifyCodeField);
         codeField.setEnabled(true);
 
-        /*
+        /**
          * Select TextViews
-         * */
+         * **/
+        contextTitle = findViewById(R.id.title);
+        contextSubTitle = findViewById(R.id.subTitle);
         errorMessages = findViewById(R.id.errorMessage);
 
-        /*
+        /**
          * Select ProgressBar
-         * */
+         * **/
         progressBar = findViewById(R.id.verifyProgressBar);
         progressBar.setVisibility(View.GONE);
 
-        /*
-         * Get the phone number will receive the code
-         * */
-        final String phoneNumber = getIntent().getStringExtra("phoneNumber");
+        /**
+         * Get the OTP needed reason
+         * **/
+        status = (STATUS) getIntent().getSerializableExtra("status");
 
-        /*
+        /**
+         * Context depending on status
+         * **/
+        contextAdaptor();
+
+        /**
+         * Get the phone number will receive the code
+         * **/
+        phoneNumber = getIntent().getStringExtra("phoneNumber");
+
+        /**
+         * Get user id to pass it to ResetPassword activity
+         * **/
+        if (status == STATUS.RESETPASSWORD){id = getIntent().getStringExtra("id");}
+
+        /**
+         * Set Timeout required to resend code
+         * **/
+        timeOut = 30L;
+
+        /**
+         * Sub-Navigation Buttons OnClick Actions
+         * **/
+        backToLoginButton.setOnClickListener(v -> {
+            startActivity(new Intent(VerifyPhoneNumber.this, Login.class));
+            finish();
+        });
+
+        /**
          * Down Counter to enable resend verification request after timeout
-         * */
+         * **/
          countDownTimer = new CountDownTimer(timeOut.intValue()*1000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
@@ -96,9 +145,9 @@ public class VerifyPhoneNumber extends AppCompatActivity {
         };
 
 
-        /*
+        /**
          * Send Verify Request
-         * */
+         * **/
         //if code autofill
         sendVerificationCode(phoneNumber);
         //if user enter the code manually
@@ -166,15 +215,45 @@ public class VerifyPhoneNumber extends AppCompatActivity {
             oAuth.signInWithCredential(credential)
                     .addOnCompleteListener(VerifyPhoneNumber.this, task -> {
                         if (task.isSuccessful()){
-                            //Return Ok to Registration Class in order to store the new user data
-                            setResult(Activity.RESULT_OK);
-                            finish();
+                            switch (status){
+                                case VERIFYNEW:
+                                    //Return Ok to Registration Class in order to store the new user data
+                                    setResult(Activity.RESULT_OK);
+                                    finish();
+                                    break;
+                                case RESETPASSWORD:
+                                    //Navigate to Reset Password Screen
+                                    Intent intent = new Intent(VerifyPhoneNumber.this, ResetPassword.class);
+                                    intent.putExtra("userId", id);
+                                    startActivity(intent);
+                                    finish();
+                                    break;
+                                default:
+                                    break;
+                            }
                         } else {
                             notCorrectCodeError();
                         }
                     });
         } catch (Exception e){
             Log.e("-*-*-*--*--*--", e.getMessage());
+        }
+    }
+
+    private void contextAdaptor (){
+        switch (status){
+            case VERIFYNEW:
+                contextTitle.setText(R.string.verifyTitle);
+                contextSubTitle.setText(R.string.verifySubTitle);
+                backToLoginButton.setVisibility(View.GONE);
+                break;
+            case RESETPASSWORD:
+                contextTitle.setText(R.string.resetTitle);
+                contextSubTitle.setText(R.string.resetSubTitle);
+                backToLoginButton.setVisibility(View.VISIBLE);
+                break;
+            default:
+                break;
         }
     }
 

@@ -22,7 +22,7 @@
         android:layout_width="140dp"
         android:layout_height="140dp"
         android:layout_marginStart="-30dp"
-        android:layout_marginTop="280dp"
+        android:layout_marginTop="250dp"
         android:background="@drawable/background_circle_shape_45"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -57,17 +57,19 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
+            android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Verify Phone Number"
+            android:text=""
             android:textColor="@color/colorTextPrimary"
             android:textSize="30dp"
             android:textStyle="bold"
             android:layout_marginBottom="5dp"/>
         <TextView
+            android:id="@+id/subTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Enter verification code if not automatically fill"
+            android:text=""
             android:textColor="@color/colorTextPrimary"
             android:textSize="14dp"
             android:layout_marginBottom="10dp"/>
@@ -131,6 +133,21 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/verifyPhoneNumberContext" />
+
+    <TextView
+        android:id="@+id/backToLoginButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/forgetPasswordBackToLogin"
+        android:textColor="@color/colorTextPrimary"
+        android:textSize="12dp"
+        android:selectAllOnFocus="false"
+        android:linksClickable="true"
+        android:autoLink="all"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/verifyCodeButton" />
 
     <ProgressBar
         android:id="@+id/verifyProgressBar"

@@ -21,6 +21,10 @@
     <string name="resendOTPRequest"><u>Resend OTP Code</u></string>
     <string name="notValidCode">Enter OTP Code</string>
     <string name="notCorrectCode">You Enter Incorrect Code</string>
+    <string name="resetTitle">Reset Password</string>
+    <string name="verifyTitle">Verify Phone Number</string>
+    <string name="resetSubTitle">We send you a message, please enter the code to reset your password ....</string>
+    <string name="verifySubTitle">Enter verification code if not automatically fill</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

@@ -32,6 +32,7 @@
     <color name="colorTextPrimary">#1F2944</color>
     <color name="colorTextBlack">#000000</color>
     <color name="colorTextWhite">#FFFFFF</color>
+    <color name="errorMessage">#FF0000</color>
 
 
 </resources>

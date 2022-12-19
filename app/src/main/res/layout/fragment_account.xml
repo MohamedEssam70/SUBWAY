@@ -341,14 +341,14 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <Button
-                    android:id="@+id/button"
+                    android:id="@+id/signOut"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
                     android:layout_marginEnd="24dp"
                     android:layout_marginBottom="20dp"
                     android:background="@drawable/button_background"
-                    android:text="Edit Profile"
+                    android:text="Sign out"
                     android:textColor="#ffffff"
                     android:textSize="18sp"
                     android:textStyle="bold" />

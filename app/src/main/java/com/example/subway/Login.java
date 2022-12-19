@@ -35,12 +35,20 @@ public class Login extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        auth = FirebaseAuth.getInstance();
+
+        if(auth.getCurrentUser() != null){
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
         setContentView(R.layout.login);
 
         /*
         * Sub-Navigation Buttons OnClick Actions
         * */
-        auth = FirebaseAuth.getInstance();
+
         final TextView registerButton = (TextView) findViewById(R.id.loginRegisterButton);
         final TextView forgetPasswordButton = (TextView) findViewById(R.id.loginForgetPasswordButton);
         final Button loginButton = (Button) findViewById(R.id.loginButton);
@@ -91,7 +99,6 @@ public class Login extends AppCompatActivity {
                     String userUID = authResult.getUser().getUid().toString();
                     Toast.makeText(Login.this, "Successful Login", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                    intent.putExtra("userID", userUID);
                     startActivity(intent);
                     finish();
 

@@ -9,10 +9,12 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -83,7 +85,7 @@ public class AccountFragment extends Fragment {
                 startActivity(new Intent(getActivity(), TripHistory.class));
             }
         });
-
+        Button signOutButton = (Button) view.findViewById(R.id.signOut) ;
         TextView userNameTxt = (TextView) view.findViewById(R.id.userName);
         TextView emailTxt = (TextView) view.findViewById(R.id.email);
         TextView phoneNumberTxt = (TextView) view.findViewById(R.id.phoneNumber);
@@ -111,6 +113,15 @@ public class AccountFragment extends Fragment {
                 Toast.makeText(getActivity(), "Failed to get Data", Toast.LENGTH_SHORT).show();
             }
 
+        });
+
+        signOutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(getActivity(),Login.class));
+                getActivity().finish();
+            }
         });
 
         // Inflate the layout for this fragment

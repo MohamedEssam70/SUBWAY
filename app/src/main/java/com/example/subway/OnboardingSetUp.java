@@ -12,7 +12,7 @@ import java.util.List;
 
 public class OnboardingSetUp {
     public OnboardingAdapter onboardingAdapter;
-    OnboardingSetUp() {
+    public OnboardingSetUp() {
         List <OnboardingItem> onboardingItems = new ArrayList<>();
 
         OnboardingItem onboardingFirstScreen = new OnboardingItem();

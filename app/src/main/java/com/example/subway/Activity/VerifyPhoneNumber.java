@@ -1,4 +1,4 @@
-package com.example.subway;
+package com.example.subway.Activity;
 
 import static java.lang.Integer.parseInt;
 
@@ -12,19 +12,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RawRes;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.arch.core.executor.TaskExecutor;
 
 import com.example.subway.Helpers.STATUS;
-import com.google.android.gms.tasks.Task;
-import com.google.android.gms.tasks.TaskExecutors;
+import com.example.subway.R;
 import com.google.firebase.FirebaseException;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
@@ -51,7 +46,6 @@ public class VerifyPhoneNumber extends AppCompatActivity {
 
     private STATUS status;
     private String phoneNumber;
-    private String id = null;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -105,11 +99,6 @@ public class VerifyPhoneNumber extends AppCompatActivity {
         phoneNumber = getIntent().getStringExtra("phoneNumber");
 
         /**
-         * Get user id to pass it to ResetPassword activity
-         * **/
-        if (status == STATUS.RESETPASSWORD){id = getIntent().getStringExtra("id");}
-
-        /**
          * Set Timeout required to resend code
          * **/
         timeOut = 30L;
@@ -125,7 +114,7 @@ public class VerifyPhoneNumber extends AppCompatActivity {
         /**
          * Down Counter to enable resend verification request after timeout
          * **/
-         countDownTimer = new CountDownTimer(timeOut.intValue()*1000, 1000) {
+        countDownTimer = new CountDownTimer(timeOut.intValue()*1000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 resendButton.setText("If you don't receive SMS in " + millisUntilFinished / 1000 + " click Resend OTP Code");
@@ -224,7 +213,6 @@ public class VerifyPhoneNumber extends AppCompatActivity {
                                 case RESETPASSWORD:
                                     //Navigate to Reset Password Screen
                                     Intent intent = new Intent(VerifyPhoneNumber.this, ResetPassword.class);
-                                    intent.putExtra("userId", id);
                                     startActivity(intent);
                                     finish();
                                     break;

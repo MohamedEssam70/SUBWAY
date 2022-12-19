@@ -1,4 +1,4 @@
-package com.example.subway;
+package com.example.subway.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,6 +6,8 @@ import android.widget.Button;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.subway.R;
 
 public class StartupScreen extends AppCompatActivity {
 
@@ -18,7 +20,7 @@ public class StartupScreen extends AppCompatActivity {
 
         getStartButton = findViewById(R.id.startupButton);
         getStartButton.setOnClickListener(v -> {
-            startActivity(new Intent(StartupScreen.this, MainActivity.class));
+            startActivity(new Intent(StartupScreen.this, Login.class));
             finish();
         });
     }

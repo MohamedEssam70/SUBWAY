@@ -1,12 +1,12 @@
-package com.example.subway;
+package com.example.subway.Activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -14,16 +14,24 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.subway.Helpers.STATUS;
+import com.example.subway.Helpers.Authentication;
+import com.example.subway.R;
+import com.example.subway.User;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class Login extends AppCompatActivity {
     private boolean NoShortageData;
+
     private FirebaseAuth auth ;
+    private DatabaseReference reference;
 
     private LinearLayout loginProgress;
 
@@ -66,13 +74,14 @@ public class Login extends AppCompatActivity {
         /**
          * Select Data Fields
          * **/
-        loginEmail = (EditText) findViewById(R.id.loginIDField) ;
-        loginPassword = (EditText) findViewById(R.id.loginPasswordField) ;
+        loginEmail = (EditText) findViewById(R.id.loginIDField);
+        loginPassword = (EditText) findViewById(R.id.loginPasswordField);
 
         /**
          * Firebase Initialize
          * * **/
         auth = FirebaseAuth.getInstance();
+        reference = FirebaseDatabase.getInstance().getReference("user");
 
         /**
          * Disable Login Background Process Action
@@ -120,9 +129,29 @@ public class Login extends AppCompatActivity {
         auth.signInWithEmailAndPassword(loginIDEmail , loginPassword).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
             @Override
             public void onSuccess(AuthResult authResult) {
-                    Toast.makeText(Login.this, "Successful Login", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(Login.this, MainActivity.class));
-                    finish();
+
+                reference.child(auth.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        User user = snapshot.getValue(User.class);
+                        if(user != null) {
+                            SharedPreferences sharedPreferences = getSharedPreferences("configurations", MODE_PRIVATE);
+                            SharedPreferences.Editor myEdit = sharedPreferences.edit();
+                            myEdit.putString("user", user.toJson());
+                            myEdit.apply();
+                            Toast.makeText(Login.this, "Login Successfully", Toast.LENGTH_LONG).show();
+                            startActivity(new Intent(Login.this, MainActivity.class));
+                            finish();
+                        } else {
+                            Toast.makeText(Login.this, "User not found", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        //
+                    }
+                });
             }
         })
         .addOnFailureListener(new OnFailureListener() {

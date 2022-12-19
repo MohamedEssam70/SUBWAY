@@ -1,6 +1,8 @@
-package com.example.subway;
+package com.example.subway.Activity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -18,8 +20,12 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 
+import com.example.subway.Helpers.Authentication;
 import com.example.subway.Helpers.STATUS;
+import com.example.subway.R;
+import com.example.subway.User;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -151,17 +157,28 @@ public class Registration extends AppCompatActivity{
         onProgress();
         String nationalIDEmail = nationalIdData + "@metro.eg";
         auth.createUserWithEmailAndPassword(nationalIDEmail,passwordData).addOnCompleteListener(Registration.this , new OnCompleteListener<AuthResult>() {
+            @SuppressLint("SuspiciousIndentation")
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()) {
-                    User userStore = new User(firstNameData , lastNameData , nationalIdData , passwordData , phoneNumberData , emailData);
-                    reference.child(auth.getUid()).setValue(userStore);
-                    Toast.makeText(Registration.this, "Successful Registration", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(Registration.this, MainActivity.class));
-                    finish();
+                    double balance = 0.0;
+                    User userStore = new User(firstNameData , lastNameData , nationalIdData , passwordData , phoneNumberData , emailData, balance);
+                    reference.child(auth.getUid()).setValue(userStore).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void unused) {
+                            SharedPreferences sharedPreferences = getSharedPreferences("configurations", MODE_PRIVATE);
+                            SharedPreferences.Editor myEdit = sharedPreferences.edit();
+                            myEdit.putString("user", userStore.toJson());
+                            myEdit.apply();
+                            Toast.makeText(Registration.this, "Registration Success", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(Registration.this, MainActivity.class));
+                            finish();
+                        }
+                    });
                 }
                 else
-                    Toast.makeText(Registration.this , "Registration failed!" , Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Registration.this , "This ID is Exist Already!" , Toast.LENGTH_SHORT).show();
+                    onCollectData();
             }
         });
     }

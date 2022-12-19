@@ -1,4 +1,4 @@
-package com.example.subway;
+package com.example.subway.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +12,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.viewpager2.widget.ViewPager2;
+
+import com.example.subway.OnboardingSetUp;
+import com.example.subway.R;
 
 public class Onboarding extends AppCompatActivity {
 

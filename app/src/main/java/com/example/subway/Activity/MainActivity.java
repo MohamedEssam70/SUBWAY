@@ -1,4 +1,4 @@
-package com.example.subway;
+package com.example.subway.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -6,7 +6,12 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import android.os.Bundle;
 import android.widget.Toast;
+
+import com.example.subway.HomeFragment;
+import com.example.subway.R;
+import com.example.subway.accountFragment;
 import com.example.subway.databinding.ActivityMainBinding;
+import com.example.subway.mapFragment;
 
 public class MainActivity extends AppCompatActivity {
     ActivityMainBinding binding;

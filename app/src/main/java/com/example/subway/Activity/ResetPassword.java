@@ -1,4 +1,4 @@
-package com.example.subway;
+package com.example.subway.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,19 +11,18 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.subway.Helpers.STATUS;
+import com.example.subway.Helpers.Authentication;
+import com.example.subway.R;
+import com.example.subway.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 public class ResetPassword extends AppCompatActivity {
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference reference;
-    private FirebaseAuth auth;
+    private FirebaseAuth oAuth;
     private User userRecord;
 
     private TextView goLoginButton;
@@ -53,17 +52,15 @@ public class ResetPassword extends AppCompatActivity {
         newPassword = (EditText) findViewById(R.id.resetPasswordNewPasswordField);
         newPasswordConfirm = (EditText) findViewById(R.id.resetPasswordConfirmPasswordField);
 
-        /**
-         * Get the user national id
-         * **/
-        userNationalId = getIntent().getStringExtra("userId");
 
         /**
          * Firebase Initialize and get a reference to our collection
          * * **/
         firebaseDatabase = FirebaseDatabase.getInstance();
+        reference = firebaseDatabase.getReference("user");
+        oAuth = FirebaseAuth.getInstance();
 
-        auth = FirebaseAuth.getInstance();
+
 
         /**
          * Change Password
@@ -80,7 +77,8 @@ public class ResetPassword extends AppCompatActivity {
                     } else if (!newPasswordData.equals(newPasswordConfirmData)){
                         Toast.makeText(ResetPassword.this,"Not Match !!",Toast.LENGTH_SHORT).show();
                     } else {
-
+                        changePassword();
+                        Toast.makeText(ResetPassword.this, "Successful", Toast.LENGTH_SHORT).show();
                     }
                 } else {
                     Toast.makeText(ResetPassword.this, "Enter New Password", Toast.LENGTH_SHORT).show();
@@ -99,9 +97,9 @@ public class ResetPassword extends AppCompatActivity {
         });
     }
 
+
+
     private void changePassword() {
-
-
-
+        FirebaseUser firebaseUser = oAuth.getCurrentUser();
     }
 }

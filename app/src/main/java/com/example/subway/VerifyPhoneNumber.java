@@ -3,11 +3,13 @@ package com.example.subway;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -30,9 +32,13 @@ import java.util.concurrent.TimeUnit;
 public class VerifyPhoneNumber extends AppCompatActivity {
     private Button askVerify;
     private EditText codeField;
+    private TextView resendButton;
+    private TextView errorMessages;
     private ProgressBar progressBar;
     private String verificationCodeBySystem;
-    private final FirebaseAuth oAuth = FirebaseAuth.getInstance();;
+    private final FirebaseAuth oAuth = FirebaseAuth.getInstance();
+    private CountDownTimer countDownTimer;
+    private Long timeOut = 30L;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -43,11 +49,18 @@ public class VerifyPhoneNumber extends AppCompatActivity {
          * Select Clickable Items
          * */
         askVerify = (Button) findViewById(R.id.verifyCodeButton);
+        resendButton = (TextView) findViewById(R.id.resendVerifyCode);
 
         /*
          * Select Code Field
          * */
         codeField = (EditText) findViewById(R.id.verifyCodeField);
+        codeField.setEnabled(true);
+
+        /*
+         * Select TextViews
+         * */
+        errorMessages = findViewById(R.id.errorMessage);
 
         /*
          * Select ProgressBar
@@ -56,9 +69,31 @@ public class VerifyPhoneNumber extends AppCompatActivity {
         progressBar.setVisibility(View.GONE);
 
         /*
-         * get the phone number will receive the code
+         * Get the phone number will receive the code
          * */
-        final String phoneNumber = "01126765802"; //getIntent().getStringExtra("phoneNumber");
+        final String phoneNumber = getIntent().getStringExtra("phoneNumber");
+
+        /*
+         * Down Counter to enable resend verification request after timeout
+         * */
+         countDownTimer = new CountDownTimer(timeOut.intValue()*1000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                resendButton.setText("If you don't receive SMS in " + millisUntilFinished / 1000 + " click Resend OTP Code");
+            }
+
+            @Override
+            public void onFinish() {
+                resendButton.setText(R.string.resendOTPRequest);
+                resendButton.setOnClickListener( v -> {
+                    sendVerificationCode(phoneNumber);
+                    errorMessages.setText("");
+                    codeField.getText().clear();
+                    codeField.setEnabled(true);
+                    countDownTimer.start();
+                });
+            }
+        };
 
 
         /*
@@ -69,15 +104,13 @@ public class VerifyPhoneNumber extends AppCompatActivity {
         //if user enter the code manually
         askVerify.setOnClickListener(v -> {
             String code = codeField.getText().toString();
-            if (code.isEmpty()){
-                Toast.makeText(this, "Enter OTP Code", Toast.LENGTH_SHORT).show();
-                codeField.requestFocus();
+            if (code.length() != 6){
+                notValidCodeError();
                 return;
             }
-            progressBar.setVisibility(View.VISIBLE);
+            validateProgress();
             verifyCode(code);
         });
-
 
     }
 
@@ -86,17 +119,18 @@ public class VerifyPhoneNumber extends AppCompatActivity {
             PhoneAuthOptions options =
                     PhoneAuthOptions.newBuilder(oAuth)
                             .setPhoneNumber("+2" + phoneNumber)       // Phone number to verify
-                            .setTimeout(60L, TimeUnit.SECONDS) // Timeout and unit
+                            .setTimeout(timeOut, TimeUnit.SECONDS) // Timeout and unit
                             .setActivity(this)                 // Activity (for callback binding)
                             .setCallbacks(mCallbacks)          // OnVerificationStateChangedCallbacks
                             .build();
             PhoneAuthProvider.verifyPhoneNumber(options);
+            countDownTimer.start();
         } catch (Exception e){
             Log.e("-*-*-*-*-*-*-*", e.getMessage());
         }
     }
 
-    private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+    private final PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
         @Override
         public void onCodeSent(@NonNull String s, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
             super.onCodeSent(s, forceResendingToken);
@@ -107,14 +141,14 @@ public class VerifyPhoneNumber extends AppCompatActivity {
         public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
             String otp = phoneAuthCredential.getSmsCode();
             if (otp != null){
-                progressBar.setVisibility(View.VISIBLE);
+                validateProgress();
                 verifyCode(otp);
             }
         }
 
         @Override
         public void onVerificationFailed(@NonNull FirebaseException e) {
-            Toast.makeText(VerifyPhoneNumber.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+//            Toast.makeText(VerifyPhoneNumber.this, e.getMessage(), Toast.LENGTH_SHORT).show();
         }
     };
 
@@ -123,26 +157,42 @@ public class VerifyPhoneNumber extends AppCompatActivity {
             PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationCodeBySystem, verificationCodeByUser);
             signInUserByCredential(credential);
         } else {
-            Log.e("--", "Wait for code message");
+            notValidCodeError();
         }
     }
 
     private void signInUserByCredential(PhoneAuthCredential credential) {
         try {
-            //
             oAuth.signInWithCredential(credential)
                     .addOnCompleteListener(VerifyPhoneNumber.this, task -> {
                         if (task.isSuccessful()){
-                            //Store the new user and login
-                            Intent intent = new Intent(this, MainActivity.class);
-                            startActivity(intent);
+                            //Return Ok to Registration Class in order to store the new user data
+                            setResult(Activity.RESULT_OK);
                             finish();
                         } else {
-                            Toast.makeText(this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            notCorrectCodeError();
                         }
                     });
         } catch (Exception e){
             Log.e("-*-*-*--*--*--", e.getMessage());
         }
+    }
+
+    private void notValidCodeError(){
+        errorMessages.setText(R.string.notValidCode);
+        codeField.setEnabled(true);
+        codeField.requestFocus();
+        progressBar.setVisibility(View.GONE);
+    }
+    private void notCorrectCodeError(){
+        errorMessages.setText(R.string.notCorrectCode);
+        codeField.setEnabled(true);
+        codeField.requestFocus();
+        progressBar.setVisibility(View.GONE);
+    }
+
+    private void validateProgress(){
+        progressBar.setVisibility(View.VISIBLE);
+        codeField.setEnabled(false);
     }
 }

@@ -2,12 +2,19 @@ package com.example.subway;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,21 +22,46 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.PhoneAuthCredential;
-import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.concurrent.TimeUnit;
-
-public class Registration extends AppCompatActivity {
+public class Registration extends AppCompatActivity{
 
     private boolean NoShortageData;
     private FirebaseAuth auth ;
     DatabaseReference reference;
+
+    private LinearLayout registrationProgress;
+
+    private EditText firstName;
+    private EditText lastName;
+    private EditText nationalId;
+    private EditText password;
+    private EditText phoneNumber;
+    private EditText email;
+
+    private String firstNameData;
+    private String nationalIdData;
+    private String passwordData;
+    private String lastNameData;
+    private String phoneNumberData;
+    private String emailData;
+
+    TextView goLoginButton;
+    Button registerButton;
+
+    private final ActivityResultLauncher<Intent> activityForResult =
+        registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if (result.getResultCode() == RESULT_OK){
+                        registerUser();
+                    }
+                }
+        });
 
 
     @Override
@@ -37,36 +69,51 @@ public class Registration extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.registration);
 
-        /*
-         * Select Clickable Items
-         * */
-        final TextView goLoginButton = (TextView) findViewById(R.id.signUpBackToLoginButton);
-        final Button registerButton = (Button) findViewById(R.id.signUpRegisterButton);
-        auth = FirebaseAuth.getInstance();
-        reference = FirebaseDatabase.getInstance().getReference("user");
-        /*
-         * Select Data Fields
-         * */
-         final EditText firstName = (EditText) findViewById(R.id.signUpFirstNameField);
-         final EditText lastName = (EditText) findViewById(R.id.signUpLastNameField);
-         final EditText nationalId = (EditText) findViewById(R.id.signUpIDField);
-         final EditText password = (EditText) findViewById(R.id.signUpPasswordField);
-         final EditText phoneNumber = (EditText) findViewById(R.id.signUpPhoneField);
-         final EditText email = (EditText) findViewById(R.id.signUpMailField);
+        /**
+         * Select LinerView of ProgressBar
+         * **/
+        registrationProgress = (LinearLayout) findViewById(R.id.registerProgress);
 
-        /*
+        /**
+         * Select Clickable Items
+         * **/
+        goLoginButton = (TextView) findViewById(R.id.signUpBackToLoginButton);
+        registerButton = (Button) findViewById(R.id.signUpRegisterButton);
+
+        /**
+         * Select Data Fields
+         * **/
+         firstName = (EditText) findViewById(R.id.signUpFirstNameField);
+         lastName = (EditText) findViewById(R.id.signUpLastNameField);
+         nationalId = (EditText) findViewById(R.id.signUpIDField);
+         password = (EditText) findViewById(R.id.signUpPasswordField);
+         phoneNumber = (EditText) findViewById(R.id.signUpPhoneField);
+         email = (EditText) findViewById(R.id.signUpMailField);
+
+         /**
+          * Firebase Initialize
+          * * **/
+         auth = FirebaseAuth.getInstance();
+         reference = FirebaseDatabase.getInstance().getReference("user");
+
+        /**
+         * Disable Registration Process Action
+         * **/
+        onCollectData();
+
+        /**
         * Registration Process
-        * */
+        * **/
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Get Data That User Enter From EditTexts
-                final String firstNameData = firstName.getText().toString();
-                final String lastNameData = lastName.getText().toString();
-                final String nationalIdData = nationalId.getText().toString();
-                final String passwordData = password.getText().toString();
-                final String phoneNumberData = phoneNumber.getText().toString().trim();
-                final String emailData = email.getText().toString();
+                firstNameData = firstName.getText().toString();
+                lastNameData = lastName.getText().toString();
+                nationalIdData = nationalId.getText().toString();
+                passwordData = password.getText().toString();
+                phoneNumberData = phoneNumber.getText().toString().trim();
+                emailData = email.getText().toString();
                 //Check User Enter All Required Data
                 NoShortageData = Authentication.checkRequiredFields(Registration.this,
                         firstNameData, lastNameData, nationalIdData, passwordData, phoneNumberData);
@@ -81,31 +128,17 @@ public class Registration extends AppCompatActivity {
                         Toast.makeText(Registration.this,"Enter a valid number!",Toast.LENGTH_SHORT).show();
                     }
                     else{
-                        /*String _phoneNumber = "+1" + phoneNumberData;
-                        Intent intent = new Intent(getApplicationContext(), ResetPasswordRequest.class);
-                        intent.putExtra("firstName", firstNameData);
-                        intent.putExtra("lastName", lastNameData);
-                        intent.putExtra("nationalId", nationalIdData);
-                        intent.putExtra("password", passwordData);
-                        intent.putExtra("phoneNumber", _phoneNumber);
-                        startActivity(intent);
-                        */
-                        //registerUser(nationalIdData ,passwordData , firstNameData , lastNameData , phoneNumberData , emailData );
-
                         Intent intent = new Intent(Registration.this, VerifyPhoneNumber.class);
                         intent.putExtra("phoneNumber", phoneNumberData);
-                        startActivity(intent);
-
+                        activityForResult.launch(intent);
                     }
-
-
                 }
             }
         });
 
-        /*
+        /**
          * Sub-Navigation Buttons OnClick Actions
-         * */
+         * **/
         goLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -113,7 +146,9 @@ public class Registration extends AppCompatActivity {
             }
         });
     }
-    private void registerUser(String nationalIdData, String passwordData , String firstNameData , String lastNameData , String phoneNumberData , String emailData) {
+
+    private void registerUser() {
+        onProgress();
         String nationalIDEmail = nationalIdData + "@metro.eg";
         auth.createUserWithEmailAndPassword(nationalIDEmail,passwordData).addOnCompleteListener(Registration.this , new OnCompleteListener<AuthResult>() {
             @Override
@@ -121,13 +156,32 @@ public class Registration extends AppCompatActivity {
                 if(task.isSuccessful()) {
                     User userStore = new User(firstNameData , lastNameData , nationalIdData , passwordData , phoneNumberData , emailData);
                     reference.child(auth.getUid()).setValue(userStore);
-                    Toast.makeText(Registration.this, "Successful Registeration", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Registration.this, "Successful Registration", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(Registration.this, MainActivity.class));
                     finish();
                 }
                 else
-                    Toast.makeText(Registration.this , "Registeration failed!" , Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Registration.this , "Registration failed!" , Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void onProgress(){
+        registrationProgress.setVisibility(View.VISIBLE);
+        firstName.setEnabled(false);
+        lastName.setEnabled(false);
+        nationalId.setEnabled(false);
+        password.setEnabled(false);
+        nationalId.setEnabled(false);
+        email.setEnabled(false);
+    }
+    private void onCollectData(){
+        registrationProgress.setVisibility(View.GONE);
+        firstName.setEnabled(true);
+        lastName.setEnabled(true);
+        nationalId.setEnabled(true);
+        password.setEnabled(true);
+        nationalId.setEnabled(true);
+        email.setEnabled(true);
     }
 }

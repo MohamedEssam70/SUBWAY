@@ -22,7 +22,7 @@
         android:layout_width="140dp"
         android:layout_height="140dp"
         android:layout_marginStart="-30dp"
-        android:layout_marginTop="250dp"
+        android:layout_marginTop="280dp"
         android:background="@drawable/background_circle_shape_45"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -69,7 +69,7 @@
             android:layout_height="wrap_content"
             android:text="Enter verification code if not automatically fill"
             android:textColor="@color/colorTextPrimary"
-            android:textSize="15dp"
+            android:textSize="14dp"
             android:layout_marginBottom="10dp"/>
 
         <EditText
@@ -87,7 +87,30 @@
             android:maxLength="6"
             android:maxLines="1"
             android:textSize="16dp"
-            android:layout_marginTop="16dp"/>
+            android:layout_marginTop="6dp"/>
+        <TextView
+            android:id="@+id/errorMessage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text=""
+            android:textColor="@color/errorMessage"
+            android:textSize="12dp"
+            android:textStyle="bold"
+            android:selectAllOnFocus="false"
+            android:linksClickable="true"
+            android:autoLink="all" />
+        <TextView
+            android:id="@+id/resendVerifyCode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text=""
+            android:textColor="@color/colorTextPrimary"
+            android:textSize="12dp"
+            android:selectAllOnFocus="false"
+            android:linksClickable="true"
+            android:autoLink="all" />
 
     </LinearLayout>
 

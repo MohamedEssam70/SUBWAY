@@ -23,6 +23,8 @@
     <color name="colorBackgroundSky">#F2F2F2</color>
     <color name="colorBackgroundGray">#bfbfbf</color>
     <color name="colorBackgroundTransparent">#00FFFFFF</color>
+    <color name="colorBackgroundWarningMessage">#C17300</color>
+    <color name="colorBackgroundErrorMessage">#FC5C65</color>
 
     <!--    Buttons Colors   -->
     <color name="colorButtonTransparent">#00FFFFFF</color>
@@ -33,6 +35,10 @@
     <color name="colorTextBlack">#000000</color>
     <color name="colorTextWhite">#FFFFFF</color>
     <color name="errorMessage">#FF0000</color>
+    <color name="colorTextWarningMessage">#C17300</color>
+    <color name="colorTextErrorMessage">#FC5C65</color>
+    <color name="colorTextDisable">#777777</color>
+    <color name="colorTextEnable">#4CAF50</color>
 
 
 </resources>

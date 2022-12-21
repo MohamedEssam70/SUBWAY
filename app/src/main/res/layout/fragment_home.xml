@@ -8,174 +8,258 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorBackgroundSky">
+        android:background="@color/colorBackgroundPrimary">
 
         <LinearLayout
-            android:id="@+id/linearLayout"
-            android:layout_width="340dp"
-            android:layout_height="100dp"
-            android:layout_marginTop="40dp"
-            android:background="@drawable/button_radius_curved"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.492"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:text="Balance"
-                android:textColor="@color/white"
-                android:textSize="30dp"
-                android:textStyle="bold" />
-
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:id="@+id/header"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"
-                android:orientation="horizontal">
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingBottom="30dp"
+                android:background="@color/colorBackgroundPrimary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/planTripSection">
 
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:background="@drawable/ic_baseline_account_balance_wallet_24" />
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/loadingBalance"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:lottie_autoPlay="true"
+                    app:lottie_loop="false"
+                    app:lottie_rawRes="@raw/loading1" />
 
                 <TextView
-                    android:id="@+id/balance"
+                    android:id="@+id/userBalanceView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="-20dp"
+                    android:text="406.50"
+                    android:textColor="@color/colorTextWhite"
+                    android:textSize="40dp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="@+id/loadingBalance" />
+
+                <LinearLayout
+                    android:id="@+id/messageLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/warning_message_layout"
+                    android:paddingVertical="8dp"
+                    android:orientation="horizontal"
+                    android:layout_marginHorizontal="25dp"
+                    android:paddingTop="10dp">
+
+                    <ImageView
+                        android:id="@+id/messageIcon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="8dp"
+                        android:src="@drawable/ic_fewbalancemessage_24"/>
+
+                    <TextView
+                        android:id="@+id/messageText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="15dp"
+                        android:text="@string/warningMessage1"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorBackgroundWarningMessage"
+                        android:textSize="10dp"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/activity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="2"
+                android:background="@drawable/top_rounded_corners_bg"
+                android:paddingHorizontal="20dp"
+                android:paddingTop="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/header">
+
+                <LinearLayout
+                    android:id="@+id/userStatus"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="15dp"
-                    android:text="300"
-                    android:textColor="@color/white"
-                    android:textSize="18dp"
-                    android:textStyle="bold" />
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginHorizontal="25dp"
+                    android:paddingTop="10dp">
+                    <ImageView
+                        android:id="@+id/circleTripStatus"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:paddingRight="4dp"
+                        android:src="@drawable/ic_baseline_circle_green_24"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="15dp"
+                        android:text="@string/activeTrip"
+                        android:textStyle="bold"
+                        android:textColor="@color/colorTextEnable"
+                        android:textSize="18dp"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/planTripSection"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="15dp"
+                    android:layout_marginTop="25dp"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Plan Your Trip"
+                        android:textColor="@color/colorTextPrimary"
+                        android:textSize="25dp"
+                        android:textStyle="bold" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Where are you heading?"
+                        android:textColor="@color/colorTextPrimary"
+                        android:textSize="12dp" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                        android:layout_width="260dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:alpha="0.5"
+                        android:ems="10"
+                        android:maxLines="1"
+                        android:textColorHint="@color/colorTextBlack"
+                        android:textSize="16dp"
+                        app:boxStrokeWidth="0dp">
+
+                        <AutoCompleteTextView
+                            android:id="@+id/fromStationAutoComplete"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@drawable/input_area"
+                            android:hint="From:"
+                            android:outlineAmbientShadowColor="@color/black" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                        android:layout_width="260dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:alpha="0.5"
+                        android:ems="10"
+                        android:maxLines="1"
+                        android:textColorHint="@color/colorTextBlack"
+                        android:textSize="16dp"
+                        app:boxStrokeWidth="0dp">
+
+                        <AutoCompleteTextView
+                            android:id="@+id/toStationAutoComplete"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@drawable/input_area"
+                            android:hint="to:"
+                            android:outlineAmbientShadowColor="@color/black" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <Button
+                        android:id="@+id/planButton"
+                        style="@style/Widget.AppCompat.Button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:background="@drawable/button_radius_curved"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="15dp"
+                        android:text="Plan"
+                        android:textColor="@color/colorTextWhite"
+                        android:textSize="14dp"
+                        android:textStyle="bold"
+                        app:backgroundTint="@color/colorButtonPrimary" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/results"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="15dp"
+                    android:layout_marginTop="15dp"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/enterStation"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Enter Station: Elmatarya"
+                        android:textColor="@color/colorTextPrimary"
+                        android:textSize="12dp" />
+                    <TextView
+                        android:id="@+id/intersectionStation"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Intersection Station: El-Shohada"
+                        android:textColor="@color/colorTextPrimary"
+                        android:textSize="12dp" />
+                    <TextView
+                        android:id="@+id/exitStation"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Exit Station: Cairo University"
+                        android:textColor="@color/colorTextPrimary"
+                        android:textSize="12dp" />
+                    <TextView
+                        android:id="@+id/tripCost"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Trip Cost: 10 EGP"
+                        android:textColor="@color/colorTextPrimary"
+                        android:textSize="12dp" />
+                    <TextView
+                        android:id="@+id/tripDuration"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Estimation Trip Duration: 30 min"
+                        android:textColor="@color/colorTextPrimary"
+                        android:textSize="12dp" />
+                </LinearLayout>
+
+
             </LinearLayout>
 
 
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/linearLayout2"
-            android:layout_width="302dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="24dp"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="@+id/linearLayout"
-            app:layout_constraintStart_toStartOf="@+id/linearLayout"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
-            <ImageView
-                android:layout_marginTop="3dp"
-                android:id="@+id/circleTripStatus"
-                android:layout_width="22dp"
-                android:layout_height="22dp"
-                android:background="@drawable/ic_baseline_circle_green_24" />
 
-            <TextView
-                android:id="@+id/textTripStatus"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginStart="15dp"
-                android:text="On going trip"
-                android:textColor="@color/colorTextPrimary"
-                android:textSize="18dp"
-                android:textStyle="bold" />
-        </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/loginContext"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="15dp"
-            android:layout_marginTop="32dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.448"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Plan your trip"
-                android:textColor="@color/colorTextPrimary"
-                android:textSize="25dp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Where are you heading?"
-                android:textColor="@color/colorTextPrimary"
-                android:textSize="12dp" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
-                android:layout_width="260dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:alpha="0.5"
-                android:ems="10"
-                android:maxLines="1"
-                android:textColorHint="@color/colorTextBlack"
-                android:textSize="16dp"
-                app:boxStrokeWidth="0dp">
-
-                <AutoCompleteTextView
-                    android:id="@+id/fromStationAutoComplete"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/input_area"
-                    android:hint="From:"
-                    android:outlineAmbientShadowColor="@color/black" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
-                android:layout_width="260dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:alpha="0.5"
-                android:ems="10"
-                android:maxLines="1"
-                android:textColorHint="@color/colorTextBlack"
-                android:textSize="16dp"
-                app:boxStrokeWidth="0dp">
-
-                <AutoCompleteTextView
-                    android:id="@+id/toStationAutoComplete"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/input_area"
-                    android:hint="to:"
-                    android:outlineAmbientShadowColor="@color/black" />
-            </com.google.android.material.textfield.TextInputLayout>
-        </LinearLayout>
-
-        <Button
-            android:id="@+id/planButton"
-            style="@style/Widget.AppCompat.Button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:background="@drawable/button_radius_curved"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
-            android:text="Plan"
-            android:textColor="@color/colorTextWhite"
-            android:textSize="14dp"
-            android:textStyle="bold"
-            app:backgroundTint="@color/colorButtonPrimary"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/loginContext" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

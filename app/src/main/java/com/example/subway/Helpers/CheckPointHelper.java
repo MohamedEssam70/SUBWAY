@@ -19,6 +19,9 @@ import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.subway.Activity.Login;
+import com.example.subway.Activity.MainActivity;
+import com.example.subway.Activity.Splash;
 import com.example.subway.CheckPoint;
 import com.example.subway.MetroStationModel;
 
@@ -32,18 +35,9 @@ import kotlin.text.Charsets;
 
 public class CheckPointHelper {
     private DBHelper dbHelper;
-    private SharedPreferences sharedPreferences;
-    private boolean isEnter = false;
 
     public CheckPointHelper(Context context){
         dbHelper = new DBHelper(context);
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        this.isEnter = sharedPreferences.getBoolean("passenger_status", false);
-    }
-
-
-    public boolean isEnter() {
-        return isEnter;
     }
 
 
@@ -55,8 +49,6 @@ public class CheckPointHelper {
      *                          False: User exit metro
      * **/
     public void changePassengerStatus(boolean status){
-        sharedPreferences.edit().putBoolean("passenger_status", status);
-        this.isEnter = status;
     }
 
 
@@ -195,6 +187,20 @@ public class CheckPointHelper {
         return res;
     }
 
+
+    public String getStationName(CheckPoint checkPoint){
+        return dbHelper.getStation(checkPoint.getId()).getMetroStationName();
+    }
+
+    public int getCost(int count){
+        if (count <= 9){
+            return 5;
+        } else if (count <=16){
+            return 7;
+        }else {
+            return 10;
+        }
+    }
 
 
 }

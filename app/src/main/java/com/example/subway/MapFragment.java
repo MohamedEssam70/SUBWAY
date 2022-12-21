@@ -10,10 +10,10 @@ import android.view.ViewGroup;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link mapFragment#newInstance} factory method to
+ * Use the {@link MapFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class mapFragment extends Fragment {
+public class MapFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -24,7 +24,7 @@ public class mapFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public mapFragment() {
+    public MapFragment() {
         // Required empty public constructor
     }
 
@@ -37,8 +37,8 @@ public class mapFragment extends Fragment {
      * @return A new instance of fragment mapFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static mapFragment newInstance(String param1, String param2) {
-        mapFragment fragment = new mapFragment();
+    public static MapFragment newInstance(String param1, String param2) {
+        MapFragment fragment = new MapFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);

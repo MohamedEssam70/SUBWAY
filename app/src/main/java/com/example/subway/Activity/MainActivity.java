@@ -7,16 +7,20 @@ import androidx.fragment.app.FragmentTransaction;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.example.subway.AccountFragment;
 import com.example.subway.HomeFragment;
 import com.example.subway.R;
-import com.example.subway.accountFragment;
+import com.example.subway.AccountFragment;
 import com.example.subway.databinding.ActivityMainBinding;
-import com.example.subway.mapFragment;
+import com.example.subway.MapFragment;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
+    public static String userUID;
     ActivityMainBinding binding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        userUID = FirebaseAuth.getInstance().getUid();
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -28,10 +32,10 @@ public class MainActivity extends AppCompatActivity {
                     replaceFragment(new HomeFragment());
                     break;
                 case R.id.map:
-                    replaceFragment(new mapFragment());
+                    replaceFragment(new MapFragment());
                     break;
                 case R.id.account:
-                    replaceFragment(new accountFragment());
+                    replaceFragment(new AccountFragment());
                     break;
             }
             return true;

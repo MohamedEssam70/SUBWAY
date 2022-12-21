@@ -19,7 +19,9 @@ import com.example.subway.User;
 import com.example.subway.databinding.FragmentHomeBinding;
 
 import java.nio.charset.Charset;
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import kotlin.text.Charsets;
 
@@ -132,11 +134,9 @@ public class NFCHelper {
                         context.startActivity(intent);
                     } else {
                         //Add new Trip
-                        Trip trip = new Trip();
-                        trip.setStationsCount(count);
-                        trip.setEnterStation(checkPointHelper.getStationName(Enter));
-                        trip.setExitStation(checkPointHelper.getStationName(Exit));
-                        trip.setTripCost(cost);
+                        Date date = new Date();
+                        DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(context);
+                        Trip trip = new Trip(null, checkPointHelper.getStationName(Enter), checkPointHelper.getStationName(Exit), String.valueOf(cost), dateFormat.format(date));
 
                         //clear sharedPreference
                         SharedPreferences.Editor myEditor = sharedPreferences.edit();

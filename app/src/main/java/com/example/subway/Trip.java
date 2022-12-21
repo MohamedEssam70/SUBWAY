@@ -43,6 +43,7 @@ public class Trip {
     public String getDate() {
         return date;
     }
+
     public void addTrip(String date, String startStation, String endStation, String cost) {
         String userUID = MainActivity.userUID;
         databasetrips = FirebaseDatabase.getInstance().getReference("trips").child(userUID);
@@ -50,4 +51,6 @@ public class Trip {
         Trip trip = new Trip(TripID, startStation, endStation, cost, date);
         databasetrips.child(TripID).setValue(trip);
     }
+
+
 }

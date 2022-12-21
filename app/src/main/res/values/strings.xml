@@ -26,6 +26,13 @@
     <string name="resetSubTitle">We send you a message, please enter the code to reset your password ....</string>
     <string name="verifySubTitle">Enter verification code if not automatically fill</string>
 
+    <!--  Home Screen Text  -->
+    <string name="warningMessage1">Warning!! Your Balance Less Than 10 EGP\nYou cant make a trip over 16 stations</string>
+    <string name="warningMessage2">Warning!! Your Balance Less Than 7 EGP\nYou cant make a trip over 9 stations</string>
+    <string name="noBalanceMessage">Error!! Your Balance Less Than 5 EGP\nPlease recharge your wallet then try again</string>
+    <string name="noActiveTrip">No Active Trip</string>
+    <string name="activeTrip">Active Trip</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

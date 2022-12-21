@@ -19,6 +19,9 @@ import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.subway.Activity.Login;
+import com.example.subway.Activity.MainActivity;
+import com.example.subway.Activity.Splash;
 import com.example.subway.CheckPoint;
 import com.example.subway.MetroStationModel;
 
@@ -32,48 +35,19 @@ import kotlin.text.Charsets;
 
 public class CheckPointHelper {
     private DBHelper dbHelper;
-    private SharedPreferences sharedPreferences;
-    private boolean isEnter = false;
 
     public CheckPointHelper(Context context){
         dbHelper = new DBHelper(context);
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        this.isEnter = sharedPreferences.getBoolean("passenger_status", false);
     }
 
-
-    public boolean isEnter() {
-        return isEnter;
-    }
-
-
-    /**
-     * Name: waitExitMode
-     * Arguments:       context -> need to pass the context
-     * Description: Store a boolean value using SharedPreferences to check if user not end his/her trip yet
-     * Return: Boolean value -> True: user still in metro
-     *                          False: User exit metro
-     * **/
-    public void changePassengerStatus(boolean status){
-        sharedPreferences.edit().putBoolean("passenger_status", status);
-        this.isEnter = status;
-    }
-
-
-    /**
-     * Name: gateInteraction
-     * Description: Read the Data from checkpoint as JSON using NFC Technology
-     * Return:
-     * **/
-    public void gateInteraction(){
-
-    }
 
 
     /**
      * Name: passengerActivity
-     * Arguments:
-     * Description: Keep track of the passenger and calculate number of station in the trip
+     * Arguments:   1-Context --> need to pass the activity context
+     *              2-Object of CheckPoint refer to the start station
+     *              3-Object of CheckPoint refer to the end station
+     * Description: tracking the passenger and calculate number of station in the trip
      * Return:
      * **/
     public int passengerActivity(Context context, CheckPoint enterPoint, CheckPoint exitPoint){
@@ -195,6 +169,20 @@ public class CheckPointHelper {
         return res;
     }
 
+
+    public String getStationName(CheckPoint checkPoint){
+        return dbHelper.getStation(checkPoint.getId()).getMetroStationName();
+    }
+
+    public int getCost(int count){
+        if (count <= 9){
+            return 5;
+        } else if (count <=16){
+            return 7;
+        }else {
+            return 10;
+        }
+    }
 
 
 }

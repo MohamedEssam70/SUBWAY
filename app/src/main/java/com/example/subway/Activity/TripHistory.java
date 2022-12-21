@@ -1,4 +1,4 @@
-package com.example.subway;
+package com.example.subway.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -7,7 +7,9 @@ import android.os.Bundle;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.example.subway.Activity.MainActivity;
+import com.example.subway.R;
+import com.example.subway.Trip;
+import com.example.subway.TripList;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;

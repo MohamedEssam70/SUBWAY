@@ -5,17 +5,14 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.annotation.SuppressLint;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.nfc.NfcAdapter;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import com.example.subway.CheckPoint;
-import com.example.subway.Helpers.CheckPointHelper;
 import com.example.subway.Helpers.NFCHelper;
 import com.example.subway.HomeFragment;
 import com.example.subway.R;
@@ -28,13 +25,14 @@ public class MainActivity extends AppCompatActivity {
     NfcAdapter nfcAdapter = null;
     PendingIntent pendingIntent = null;
     NFCHelper nfcHelper;
+
+    @SuppressLint("NonConstantResourceId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         replaceFragment(new HomeFragment());
-        Toast.makeText(this, "testing", Toast.LENGTH_SHORT).show();
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
             switch (item.getItemId()){
                 case R.id.home:
@@ -54,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
         /*********************************
          * NFC HANDLING
          *********************************/
+        nfcHelper = new NFCHelper(this);
         try {
             NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(this);
             /**
@@ -69,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
              *
              * **/
             //For when the activity is launched by the intent-filter for android.nfc.action.NDEF_DISCOVERE
-            nfcHelper.readStationGate(this.getIntent(), this);
+            nfcHelper.readStationGate(this.getIntent());
             pendingIntent = PendingIntent.getActivity(
                     this,
                     0,
@@ -98,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         setIntent(intent);
-        nfcHelper.readStationGate(intent, this);
+        nfcHelper.readStationGate(intent);
     }
     @Override
     protected void onPause() {

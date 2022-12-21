@@ -41,31 +41,13 @@ public class CheckPointHelper {
     }
 
 
-    /**
-     * Name: waitExitMode
-     * Arguments:       context -> need to pass the context
-     * Description: Store a boolean value using SharedPreferences to check if user not end his/her trip yet
-     * Return: Boolean value -> True: user still in metro
-     *                          False: User exit metro
-     * **/
-    public void changePassengerStatus(boolean status){
-    }
-
-
-    /**
-     * Name: gateInteraction
-     * Description: Read the Data from checkpoint as JSON using NFC Technology
-     * Return:
-     * **/
-    public void gateInteraction(){
-
-    }
-
 
     /**
      * Name: passengerActivity
-     * Arguments:
-     * Description: Keep track of the passenger and calculate number of station in the trip
+     * Arguments:   1-Context --> need to pass the activity context
+     *              2-Object of CheckPoint refer to the start station
+     *              3-Object of CheckPoint refer to the end station
+     * Description: tracking the passenger and calculate number of station in the trip
      * Return:
      * **/
     public int passengerActivity(Context context, CheckPoint enterPoint, CheckPoint exitPoint){

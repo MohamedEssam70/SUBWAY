@@ -49,6 +49,31 @@ public class DBHelper extends SQLiteOpenHelper {
         return true;
     }
 
+    //TODO: Use this method to store all stations as objects in order to use in the dropdown list at home
+    public ArrayList<MetroStationModel> querySelectorAll() {
+        ArrayList<MetroStationModel> stations = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor result = db.rawQuery( "select * from "+TABLE_NAME,null);
+        result.moveToFirst();
+        MetroStationModel station = null;
+        result.moveToFirst();
+        while(!result.isAfterLast()){
+            try {
+                stations.add(new MetroStationModel(
+                        result.getInt(result.getColumnIndexOrThrow(STATION_ID_COL)),
+                        result.getString(result.getColumnIndexOrThrow(STATION_NAME_COL)),
+                        result.getString(result.getColumnIndexOrThrow(STATION_LINES_COL))
+                ));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            result.moveToNext();
+        }
+        result.close();
+        db.close();
+        return stations;
+    }
+
     public MetroStationModel getStation(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor result = db.rawQuery( "select * from "+TABLE_NAME+" where "+STATION_ID_COL+"="+id, null );

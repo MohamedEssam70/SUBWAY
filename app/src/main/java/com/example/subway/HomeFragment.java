@@ -1,8 +1,10 @@
 package com.example.subway;
 
+import static android.content.Context.MODE_PRIVATE;
 import static androidx.core.content.ContextCompat.getSystemService;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -33,7 +35,7 @@ public class HomeFragment extends Fragment {
     AutoCompleteTextView stationsAutoCompleteTxt;
     ArrayAdapter<String> adapterStations;
 
-    public String balanceTest = null;
+    public boolean balanceTest = true;
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -80,13 +82,23 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home,container,false);
+        /**
+         * SharedPreferences Initialize
+         * **/
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("configurations", MODE_PRIVATE);
         stationsAutoCompleteTxt = view.findViewById(R.id.fromStationAutoComplete);
         adapterStations = new ArrayAdapter<String>(getActivity(), R.layout.dropdown_stations,stations);
         stationsAutoCompleteTxt.setAdapter(adapterStations);
-        balanceTest = getActivity().getIntent().getStringExtra("balance_enough");
-        if (balanceTest != null && !balanceTest.isEmpty()){
+        /**
+         * Check User Balance
+         * **/
+        balanceTest = getActivity().getIntent().getBooleanExtra("balance_enough", true);
+        if (!balanceTest){
             Toast.makeText(getContext(), "You Don't Have Enough Money", Toast.LENGTH_SHORT).show();
         }
+        /**
+         * Plan Trip Input
+         * **/
         stationsAutoCompleteTxt.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -108,6 +120,9 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        /**
+         * Messages Handling
+         * **/
         LinearLayout messageLayout = view.findViewById(R.id.messageLayout);
         TextView messagesText = view.findViewById(R.id.messageText);
         ImageView messageIcon = view.findViewById(R.id.messageIcon);
@@ -116,7 +131,7 @@ public class HomeFragment extends Fragment {
 
         //TODO: Check balance here
         //delete temp_balance
-        double temp_balance = 4.0;
+        double temp_balance = 20.0;
         if (temp_balance < 10){
             messageLayout.setVisibility(View.VISIBLE);
             messageLayout.setBackground(AppCompatResources.getDrawable(getContext(), R.drawable.warning_message_layout));
@@ -135,6 +150,24 @@ public class HomeFragment extends Fragment {
             messageIcon.setImageResource(R.drawable.ic_nobalancemessage_24);
             messagesText.setText(R.string.noBalanceMessage);
             messagesText.setTextColor(ContextCompat.getColor(getContext(), R.color.colorTextErrorMessage));
+        }
+
+        /**
+         * User Status Indicator Handling
+         * **/
+        TextView textTripStatus = (TextView) view.findViewById(R.id.textTripStatus);
+        ImageView circleTripStatus = (ImageView) view.findViewById(R.id.circleTripStatus);
+
+        if (sharedPreferences.getString("check_point", null) != null){
+            //User have an active trip
+            textTripStatus.setText(R.string.activeTrip);
+            textTripStatus.setTextColor(ContextCompat.getColor(getContext(), R.color.colorTextEnable));
+            circleTripStatus.setImageResource(R.drawable.ic_baseline_circle_green_24);
+        } else {
+            //User don't have active trip
+            textTripStatus.setText(R.string.noActiveTrip);
+            textTripStatus.setTextColor(ContextCompat.getColor(getContext(), R.color.colorTextDisable));
+            circleTripStatus.setImageResource(R.drawable.ic_baseline_circle_gray_24);
         }
 
 

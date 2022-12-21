@@ -1,5 +1,10 @@
 package com.example.subway;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+
 public class CheckPoint {
     private int id;
     private boolean isEnter;
@@ -37,5 +42,17 @@ public class CheckPoint {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public String toJson() {
+        return new Gson().toJson(this);
+    }
+
+    public void fromJson(String json) {
+        Type type = new TypeToken<CheckPoint>(){}.getType();
+        CheckPoint checkPoint = new Gson().fromJson(json, type);
+        this.id = checkPoint.getId();
+        this.isEnter = checkPoint.isEnter();
+        this.active = checkPoint.isActive();
     }
 }

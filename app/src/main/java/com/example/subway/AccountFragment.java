@@ -97,33 +97,21 @@ public class AccountFragment extends Fragment {
         TextView nationalIdTxt = (TextView) view.findViewById(R.id.nationalID);
 
         databaseUser = FirebaseDatabase.getInstance().getReference("user");
-        databaseUser.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists()){
-                    firstName = snapshot.child(userUID).child("firstName").getValue(String.class);
-                    lastName = snapshot.child(userUID).child("lastName").getValue(String.class);
-                    email = snapshot.child(userUID).child("email").getValue(String.class);
-                    phoneNumber = snapshot.child(userUID).child("phoneNumberData").getValue(String.class);
-                    nationalId = snapshot.child(userUID).child("nationalIdData").getValue(String.class);
-                    userNameTxt.setText("Hey, "+firstName+" "+lastName);
-                    emailTxt.setText(email);
-                    nationalIdTxt.setText(nationalId);
-                    phoneNumberTxt.setText(phoneNumber);
-                }
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(getActivity(), "Failed to get Data", Toast.LENGTH_SHORT).show();
-            }
-
-        });
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("configurations", Context.MODE_PRIVATE);
+        String s = sharedPreferences.getString("user", null);
+        if(s != null){
+            User user = new User();
+            user.fromJson(s);
+             userNameTxt.setText(user.getFirstName()+ " "+ user.getLastName());
+             emailTxt.setText(user.getEmail());
+             phoneNumberTxt.setText(user.getPhoneNumberData());
+             nationalIdTxt.setText(user.getNationalIdData());
+        }
 
         signOutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferences sharedPreferences = getContext().getSharedPreferences("configurations", Context.MODE_PRIVATE);
                 SharedPreferences.Editor myEdit = sharedPreferences.edit();
                 myEdit.putString("user",null);
                 myEdit.apply();

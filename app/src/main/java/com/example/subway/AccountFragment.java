@@ -85,7 +85,7 @@ public class AccountFragment extends Fragment {
         });
 
         TextView userNameTxt = (TextView) view.findViewById(R.id.userName);
-        TextView emailTxt = (TextView) view.findViewById(R.id.email);
+        TextView emailTxt = (TextView) view.findViewById(R.id.emailTextViewContent);
         TextView phoneNumberTxt = (TextView) view.findViewById(R.id.phoneNumber);
         TextView nationalIdTxt = (TextView) view.findViewById(R.id.nationalID);
 
@@ -99,7 +99,7 @@ public class AccountFragment extends Fragment {
                     email = snapshot.child(userUID).child("email").getValue(String.class);
                     phoneNumber = snapshot.child(userUID).child("phoneNumberData").getValue(String.class);
                     nationalId = snapshot.child(userUID).child("nationalIdData").getValue(String.class);
-                    userNameTxt.setText("Hey, "+firstName+" "+lastName);
+                    userNameTxt.setText(firstName+" "+lastName);
                     emailTxt.setText(email);
                     nationalIdTxt.setText(nationalId);
                     phoneNumberTxt.setText(phoneNumber);

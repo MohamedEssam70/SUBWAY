@@ -103,6 +103,7 @@ public class NFCHelper {
             myEditor.putString("check_point", _checkPointJson);
             myEditor.apply();
             Toast.makeText(context, "Trip Start Successfully", Toast.LENGTH_SHORT).show();
+            context.startActivity(new Intent(context, MainActivity.class));
             Log.e("-*-**-*-*-*-", "Trip Start");
         } else if (!checkPoint.isEnter() && checkPointJson == null){
             // This Case User don't have active trip but sign in from exit gate
@@ -116,8 +117,6 @@ public class NFCHelper {
             if(userJson != null) {
                 User user = new User();
                 user.fromJson(userJson);
-                // todo remove
-                user.setBalance(20.0);
                 try {
                     CheckPoint Enter = new CheckPoint();
                     Enter.fromJson(sharedPreferences.getString("check_point", null));
@@ -154,6 +153,7 @@ public class NFCHelper {
                             myEdit.putString("user", user.toJson());
                             myEdit.apply();
                         }
+                        context.startActivity(new Intent(context, MainActivity.class));
                     }
                 } catch (Exception e){
                     Log.e("-*--*-*-*-*-*", e.getMessage());

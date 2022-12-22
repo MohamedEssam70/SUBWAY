@@ -48,10 +48,14 @@ public class AddBalance extends AppCompatActivity {
                     if(s != null){
                         User user = new User();
                         user.fromJson(s);
-                        user.setBalance(user.getBalance() + extraBalance);
+                        double newBalance = user.getBalance()+ extraBalance;
+                        user.setBalance(newBalance);
                         SharedPreferences.Editor myEdit = sharedPreferences.edit();
                         myEdit.putString("user", user.toJson());
                         myEdit.apply();
+
+                        FirebaseDatabase.getInstance().getReference("user").child(MainActivity.userUID).child("balance").setValue(newBalance);
+
                         startActivity(new Intent(AddBalance.this, MainActivity.class));
                         finish();
                     }

@@ -22,7 +22,6 @@ import com.google.firebase.auth.FirebaseAuth;
 public class MainActivity extends AppCompatActivity {
     public static String userUID;
     ActivityMainBinding binding;
-    NfcAdapter nfcAdapter = null;
     PendingIntent pendingIntent = null;
     NFCHelper nfcHelper;
 
@@ -119,16 +118,14 @@ public class MainActivity extends AppCompatActivity {
      * Enable Write and foreground dispatch to prevent intent-filter to launch the app again
      ****************************************************************************/
     private void WriteModeOn() {
-        if(nfcAdapter != null) {
+            NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(this);
             nfcAdapter.enableForegroundDispatch(this, pendingIntent, null, null);
-        }
     }
     /******************************************************************************
      * Disable Write and foreground dispatch to allow intent-filter to launch the app
      ****************************************************************************/
     private void WriteModeOff() {
-        if(nfcAdapter != null) {
+            NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(this);
             nfcAdapter.disableForegroundDispatch(this);
-        }
     }
 }

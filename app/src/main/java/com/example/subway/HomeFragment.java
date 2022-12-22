@@ -4,6 +4,7 @@ import static android.content.Context.MODE_PRIVATE;
 import static androidx.core.content.ContextCompat.getSystemService;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -32,9 +34,10 @@ import android.widget.Toast;
  */
 public class HomeFragment extends Fragment {
     String[] stations = {"Helwan","Ain-helwan","Hadyek-helwan"};
-    AutoCompleteTextView stationsAutoCompleteTxt;
-    ArrayAdapter<String> adapterStations;
-
+    private AutoCompleteTextView stationsAutoCompleteTxt;
+    private ArrayAdapter<String> adapterStations;
+    private TextView balanceTxt;
+    private double currentBalance;
     public boolean balanceTest = true;
 
 
@@ -90,6 +93,25 @@ public class HomeFragment extends Fragment {
         adapterStations = new ArrayAdapter<String>(getActivity(), R.layout.dropdown_stations,stations);
         stationsAutoCompleteTxt.setAdapter(adapterStations);
         /**
+         * Setting balance
+         * **/
+        balanceTxt =  view.findViewById(R.id.userBalanceView);
+        String s = sharedPreferences.getString("user", null);
+        if(s != null){
+            User user = new User();
+            user.fromJson(s);
+            currentBalance = user.getBalance();
+            balanceTxt.setText(String.valueOf(currentBalance));
+        }
+
+        balanceTxt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), AddBalance.class));
+            }
+        });
+
+        /**
          * Check User Balance
          * **/
         balanceTest = getActivity().getIntent().getBooleanExtra("balance_enough", true);
@@ -130,21 +152,19 @@ public class HomeFragment extends Fragment {
         messageLayout.setVisibility(View.GONE);
 
         //TODO: Check balance here
-        //delete temp_balance
-        double temp_balance = 20.0;
-        if (temp_balance < 10){
+        if (currentBalance < 10){
             messageLayout.setVisibility(View.VISIBLE);
             messageLayout.setBackground(AppCompatResources.getDrawable(getContext(), R.drawable.warning_message_layout));
             messageIcon.setImageResource(R.drawable.ic_fewbalancemessage_24);
             messagesText.setText(R.string.warningMessage1);
         }
-        if (temp_balance < 7){
+        if (currentBalance < 7){
             messageLayout.setVisibility(View.VISIBLE);
             messageLayout.setBackground(AppCompatResources.getDrawable(getContext(), R.drawable.warning_message_layout));
             messageIcon.setImageResource(R.drawable.ic_fewbalancemessage_24);
             messagesText.setText(R.string.warningMessage2);
         }
-        if (temp_balance < 5){
+        if (currentBalance < 5){
             messageLayout.setVisibility(View.VISIBLE);
             messageLayout.setBackground(AppCompatResources.getDrawable(getContext(), R.drawable.error_message_layout));
             messageIcon.setImageResource(R.drawable.ic_nobalancemessage_24);

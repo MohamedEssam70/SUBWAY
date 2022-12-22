@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.NFC" />
+
     <uses-feature android:name="android.hardware.nfc" />
 
     <application
@@ -14,6 +15,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Subway">
+        <activity
+            android:name=".AddBalance"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
         <activity
             android:name=".Activity.Splash"
             android:exported="true"
@@ -35,6 +43,7 @@
 
                 <data android:mimeType="text/plain" />
             </intent-filter>
+
             <meta-data
                 android:name="android.nfc.action.TECH_DISCOVERED"
                 android:resource="@xml/nfc_tech_filter" />
@@ -43,43 +52,37 @@
             android:name=".Activity.TripHistory"
             android:exported="false">
             <meta-data
-                android:name="android.app.lib_name" android:value="" />
+                android:name="android.app.lib_name"
+                android:value="" />
         </activity>
         <activity
             android:name=".Activity.Onboarding"
             android:exported="true"
-            android:theme="@style/Theme.Onboarding">
-        </activity>
+            android:theme="@style/Theme.Onboarding"></activity>
         <activity
             android:name=".Activity.StartupScreen"
             android:exported="true"
-            android:theme="@style/Theme.Onboarding">
-        </activity>
+            android:theme="@style/Theme.Onboarding"></activity>
         <activity
             android:name=".Activity.Login"
             android:exported="true"
-            android:theme="@style/Theme.LoginNadRegistration">
-        </activity>
+            android:theme="@style/Theme.LoginNadRegistration"></activity>
         <activity
             android:name=".Activity.Registration"
             android:exported="true"
-            android:theme="@style/Theme.LoginNadRegistration">
-        </activity>
+            android:theme="@style/Theme.LoginNadRegistration"></activity>
         <activity
             android:name=".Activity.ResetPasswordRequest"
             android:exported="true"
-            android:theme="@style/Theme.LoginNadRegistration">
-        </activity>
+            android:theme="@style/Theme.LoginNadRegistration"></activity>
         <activity
             android:name=".Activity.ResetPassword"
             android:exported="true"
-            android:theme="@style/Theme.LoginNadRegistration">
-        </activity>
+            android:theme="@style/Theme.LoginNadRegistration"></activity>
         <activity
             android:name=".Activity.VerifyPhoneNumber"
             android:exported="true"
-            android:theme="@style/Theme.LoginNadRegistration">
-        </activity>
+            android:theme="@style/Theme.LoginNadRegistration"></activity>
     </application>
 
 </manifest>

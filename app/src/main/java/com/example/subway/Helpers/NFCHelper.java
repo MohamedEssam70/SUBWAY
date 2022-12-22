@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.subway.Activity.MainActivity;
+import com.example.subway.AddBalance;
 import com.example.subway.CheckPoint;
 import com.example.subway.Trip;
 import com.example.subway.User;
@@ -144,6 +145,15 @@ public class NFCHelper {
                         myEditor.apply();
                         Toast.makeText(context, "Trip End Successfully", Toast.LENGTH_SHORT).show();
                         //TODO: Update user balance + Reload MainActivity
+                        String s = sharedPreferences.getString("user", null);
+                        if(s != null){
+                            User _user = new User();
+                            user.fromJson(s);
+                            user.setBalance(user.getBalance() - cost);
+                            SharedPreferences.Editor myEdit = sharedPreferences.edit();
+                            myEdit.putString("user", user.toJson());
+                            myEdit.apply();
+                        }
                     }
                 } catch (Exception e){
                     Log.e("-*--*-*-*-*-*", e.getMessage());

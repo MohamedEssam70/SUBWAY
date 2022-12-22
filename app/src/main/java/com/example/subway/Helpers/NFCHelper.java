@@ -136,8 +136,8 @@ public class NFCHelper {
                         //Add new Trip
                         Date date = new Date();
                         DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(context);
-                        Trip trip = new Trip(null, checkPointHelper.getStationName(Enter), checkPointHelper.getStationName(Exit), String.valueOf(cost), dateFormat.format(date));
-
+                        Trip trip = new Trip();
+                        trip.addTrip(dateFormat.format(date), checkPointHelper.getStationName(Enter), checkPointHelper.getStationName(Exit), String.valueOf(cost));
                         //clear sharedPreference
                         SharedPreferences.Editor myEditor = sharedPreferences.edit();
                         myEditor.putString("check_point", null);

@@ -15,17 +15,28 @@ import androidx.fragment.app.Fragment;
 
 import android.os.VibrationEffect;
 import android.os.Vibrator;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.subway.Activity.Registration;
+import com.example.subway.Helpers.Authentication;
+import com.example.subway.Helpers.CheckPointHelper;
+import com.example.subway.Helpers.DBHelper;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -33,10 +44,20 @@ import android.widget.Toast;
  * create an instance of this fragment.
  */
 public class HomeFragment extends Fragment {
-    String[] stations = {"Helwan","Ain-helwan","Hadyek-helwan"};
+    String[] stations = {"New El Marg","El Marg","Ezbet El Nakhl","Ain Shams","Mattareya","Helmeyet El Zaytoun","Hadayek El Zaytoun","Saray El Qubba","Hammamat El Qubba","Kobry El Qubba","Manshyet El Sadr","El Demerdash",
+            "Ghamra","Al Shohadaa","Orabi","Nasser","El Sadat","Saad Zaghloul","Sayeda Zainab","El Malek El Saleh", "Mar Girgis" ,"El Zahraa" ,"Dar El Salam","Hadayek El Maadi", "El Maadi"   ,"Skanat El Maadi","Tura El Balad"
+            ,"Kozzika","Tura El Asmant","El Maasara","Hadayek Helwan","Wadi Hof","Helwan University","Ain Helwan","Helwan","Shubra El Kheima","Koleyet El Zeraa","El Mezallat","El Khalafawy","Saint Theresa","Rod El Farag","Massara"
+            ,"Attaba","Nageeb","Opera","Dokki","El Behoos","Cairo University","Faysal","Giza","Om El Masryeen","Sakyet Mekky","El Moneeb","El Haykeestep","Omar Ibn El khattab","Qubaa","Hesham Barakat","El Nozha","El Shams Club","Alf Maskan"
+            ,"Heliopolis","Haroun","El Ahram","Kolleyet El Banat","Stadium","Fair Zone","El Abassiya","Abdou Pasha","El Geish","Bab El Shaariya","Maspero","Safaa Hegazy","Kit-Kat","Tawfikia","Wadi El Nile","Gamet El Dowel","Boulak El Dakrour"
+            ,"Sudan","Imbaba","El-Bohy ","El-Qawmia","Ring Road","Rod El Farag Corr."
+};
+    private boolean NoShortageData;
+    private String planTripStartStation;
+    private String planTripEndStation;
     private AutoCompleteTextView stationsAutoCompleteTxt;
     private ArrayAdapter<String> adapterStations;
     private TextView balanceTxt;
+    private Button planTripBtn;
     private double currentBalance;
     public boolean balanceTest = true;
 
@@ -92,6 +113,7 @@ public class HomeFragment extends Fragment {
         stationsAutoCompleteTxt = view.findViewById(R.id.fromStationAutoComplete);
         adapterStations = new ArrayAdapter<String>(getActivity(), R.layout.dropdown_stations,stations);
         stationsAutoCompleteTxt.setAdapter(adapterStations);
+        Log.e("test", String.valueOf(Arrays.asList(stations).indexOf("Rod El Farag Corr.")));
         /**
          * Setting balance
          * **/
@@ -124,8 +146,8 @@ public class HomeFragment extends Fragment {
         stationsAutoCompleteTxt.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String station = parent.getItemAtPosition(position).toString();
-                Toast.makeText(getActivity(),"station: "+ station, Toast.LENGTH_SHORT).show();
+                stationsAutoCompleteTxt.setHint("");
+                planTripStartStation = parent.getItemAtPosition(position).toString();
             }
         });
         stationsAutoCompleteTxt = view.findViewById(R.id.toStationAutoComplete);
@@ -137,11 +159,38 @@ public class HomeFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 stationsAutoCompleteTxt.setHint("");
-                String station = parent.getItemAtPosition(position).toString();
-                Toast.makeText(getActivity(),"station: "+ station, Toast.LENGTH_SHORT).show();
+                planTripEndStation = parent.getItemAtPosition(position).toString();
             }
         });
+        /**
+         * PLAN Trip Handling
+         * **/
+        planTripBtn = view.findViewById(R.id.planButton);
+        planTripBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NoShortageData = Authentication.checkRequiredFields(getActivity(),
+                        planTripStartStation, planTripEndStation);
+                if(NoShortageData){
+                    int startId = getStationIndex(planTripStartStation);
+                    int endId = getStationIndex(planTripEndStation);
+                    CheckPointHelper checkPointHelper = new CheckPointHelper(getContext());
+                    String intersection = checkPointHelper.getInstersctionStation(getContext(), startId, endId);
+                    int count = checkPointHelper.passengerActivity(getContext(), startId, endId);
+                    int cost = checkPointHelper.getCost(count);
+                    Log.e("intersection", intersection);
+                    Log.e("count", String.valueOf(count));
+                    Log.e("cost", String.valueOf(cost));
+                    if(intersection.equals("no switch needed")){
+                        //TODO: UI
+                    }
+                    else{
+                        //TODO: UI
+                    }
+                }
 
+            }
+        });
         /**
          * Messages Handling
          * **/
@@ -194,5 +243,9 @@ public class HomeFragment extends Fragment {
 
         // Inflate the layout for this fragment
         return view;
+    }
+
+    private int getStationIndex(String stn) {
+        return (Arrays.asList(stations).indexOf(stn) + 1);
     }
 }

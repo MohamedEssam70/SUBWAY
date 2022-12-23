@@ -3,6 +3,7 @@ package com.example.subway;
 import static android.content.Context.MODE_PRIVATE;
 import static androidx.core.content.ContextCompat.getSystemService;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -37,6 +38,7 @@ import com.example.subway.Helpers.DBHelper;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -51,6 +53,9 @@ public class HomeFragment extends Fragment {
             ,"Heliopolis","Haroun","El Ahram","Kolleyet El Banat","Stadium","Fair Zone","El Abassiya","Abdou Pasha","El Geish","Bab El Shaariya","Maspero","Safaa Hegazy","Kit-Kat","Tawfikia","Wadi El Nile","Gamet El Dowel","Boulak El Dakrour"
             ,"Sudan","Imbaba","El-Bohy ","El-Qawmia","Ring Road","Rod El Farag Corr."
 };
+    private AlertDialog.Builder dialogBuilder;
+    private AlertDialog dialog;
+    private TextView startStation, startDirection, transitionStation, transitionDirection, endStation;
     private boolean NoShortageData;
     private String planTripStartStation;
     private String planTripEndStation;
@@ -60,6 +65,7 @@ public class HomeFragment extends Fragment {
     private Button planTripBtn;
     private double currentBalance;
     public boolean balanceTest = true;
+
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -181,10 +187,14 @@ public class HomeFragment extends Fragment {
                     Log.e("intersection", intersection);
                     Log.e("count", String.valueOf(count));
                     Log.e("cost", String.valueOf(cost));
+                    //Log.e("direction: ", getLineDirection(startId, endId));
                     if(intersection.equals("no switch needed")){
                         //TODO: UI
                     }
                     else{
+                        int switchId = getStationIndex(intersection);
+                        Log.e("first direction", getLineDirection(startId, switchId));
+                        Log.e("second direction", getLineDirection(switchId, endId));
                         //TODO: UI
                     }
                 }
@@ -238,11 +248,41 @@ public class HomeFragment extends Fragment {
             textTripStatus.setTextColor(ContextCompat.getColor(getContext(), R.color.colorTextDisable));
             circleTripStatus.setImageResource(R.drawable.ic_baseline_circle_gray_24);
         }
-
-
-
         // Inflate the layout for this fragment
         return view;
+    }
+
+    private String  getLineDirection(int start, int end) {
+        DBHelper dbHelper = new DBHelper(getContext());
+        int[] lineData = getCommonLine( dbHelper.getStation(start).getMetroStationLines(),  dbHelper.getStation(end).getMetroStationLines());
+        int startPosition = dbHelper.getStation(start).getMetroStationLines().get(lineData[1]).sort;
+        int endPosition =  dbHelper.getStation(end).getMetroStationLines().get(lineData[2]).sort;
+        MetroMapModel metroMapModel = new MetroMapModel(getContext());
+        Log.e("line", String.valueOf(lineData[0]));
+        switch (lineData[0]){
+            case 1:
+                if(startPosition > endPosition)  return "New El Marg";
+                else return "Helwan";
+            case 2:
+                if(startPosition > endPosition)  return "Shobra El Kheima";
+                else return "El Monieb";
+            default:
+                if(startPosition > endPosition)  return "Adly Mansour";
+                else return "kit kat";
+        }
+    }
+
+    private int[] getCommonLine(List<LineModel> metroStationLines, List<LineModel> metroStationLines1) {
+        for(int i = 0; i < metroStationLines.size(); i++){
+            for(int j = 0; j < metroStationLines1.size(); j++){
+                if(metroStationLines.get(i).line == metroStationLines1.get(j).line){
+                    int[] arr = {metroStationLines.get(i).line, i, j};
+                    return arr;
+                }
+            }
+        }
+        int[] arr2 = {0, 0, 0};
+        return arr2;
     }
 
     private int getStationIndex(String stn) {

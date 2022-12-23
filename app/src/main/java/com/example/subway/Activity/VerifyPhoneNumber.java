@@ -25,10 +25,19 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.concurrent.TimeUnit;
 
 public class VerifyPhoneNumber extends AppCompatActivity {
+
+    public static String phoneUid;
+    private String userUID;
+
     private Button askVerify;
     private EditText codeField;
     private TextView resendButton;
@@ -41,6 +50,7 @@ public class VerifyPhoneNumber extends AppCompatActivity {
     private String verificationCodeBySystem;
 
     private FirebaseAuth oAuth;
+    private DatabaseReference phoneReference;
 
     private CountDownTimer countDownTimer;
     private Long timeOut;
@@ -57,6 +67,7 @@ public class VerifyPhoneNumber extends AppCompatActivity {
          * Firebase Initialize
          * * **/
         oAuth = FirebaseAuth.getInstance();
+        phoneReference = FirebaseDatabase.getInstance().getReference("phoneNumber");
 
         /**
          * Select Clickable Items
@@ -209,13 +220,30 @@ public class VerifyPhoneNumber extends AppCompatActivity {
                             switch (status){
                                 case VERIFYNEW:
                                     //Return Ok to Registration Class in order to store the new user data
+                                    phoneUid = oAuth.getUid();
                                     setResult(Activity.RESULT_OK);
+
                                     finish();
                                     break;
                                 case RESETPASSWORD:
                                     //Navigate to Reset Password Screen
                                     Intent intent = new Intent(VerifyPhoneNumber.this, ResetPassword.class);
-                                    startActivity(intent);
+                                    Log.e("userphoneUid", oAuth.getUid());
+                                    phoneReference.child(oAuth.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                            userUID = snapshot.getValue().toString();
+                                            Log.e("userUid", userUID);
+                                            intent.putExtra("userUID", userUID);
+                                            startActivity(intent);
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError error) {
+
+                                        }
+                                    });
+                                    Log.e("i got out", "alh");
                                     finish();
                                     break;
                                 default:

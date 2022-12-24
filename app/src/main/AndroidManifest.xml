@@ -16,6 +16,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Subway">
         <activity
+            android:name=".ChangePassword"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".AddBalance"
             android:exported="false">
             <meta-data
@@ -58,31 +65,31 @@
         <activity
             android:name=".Activity.Onboarding"
             android:exported="true"
-            android:theme="@style/Theme.Onboarding"></activity>
+            android:theme="@style/Theme.Onboarding" />
         <activity
             android:name=".Activity.StartupScreen"
             android:exported="true"
-            android:theme="@style/Theme.Onboarding"></activity>
+            android:theme="@style/Theme.Onboarding" />
         <activity
             android:name=".Activity.Login"
             android:exported="true"
-            android:theme="@style/Theme.LoginNadRegistration"></activity>
+            android:theme="@style/Theme.LoginNadRegistration" />
         <activity
             android:name=".Activity.Registration"
             android:exported="true"
-            android:theme="@style/Theme.LoginNadRegistration"></activity>
+            android:theme="@style/Theme.LoginNadRegistration" />
         <activity
             android:name=".Activity.ResetPasswordRequest"
             android:exported="true"
-            android:theme="@style/Theme.LoginNadRegistration"></activity>
+            android:theme="@style/Theme.LoginNadRegistration" />
         <activity
             android:name=".Activity.ResetPassword"
             android:exported="true"
-            android:theme="@style/Theme.LoginNadRegistration"></activity>
+            android:theme="@style/Theme.LoginNadRegistration" />
         <activity
             android:name=".Activity.VerifyPhoneNumber"
             android:exported="true"
-            android:theme="@style/Theme.LoginNadRegistration"></activity>
+            android:theme="@style/Theme.LoginNadRegistration" />
     </application>
 
 </manifest>

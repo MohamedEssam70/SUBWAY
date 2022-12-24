@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -14,17 +13,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.subway.Activity.Login;
 import com.example.subway.Activity.MainActivity;
 import com.example.subway.Activity.TripHistory;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -95,6 +90,7 @@ public class AccountFragment extends Fragment {
         TextView emailTxt = (TextView) view.findViewById(R.id.email);
         TextView phoneNumberTxt = (TextView) view.findViewById(R.id.phoneNumber);
         TextView nationalIdTxt = (TextView) view.findViewById(R.id.nationalID);
+        TextView editPassword = (TextView) view.findViewById(R.id.edit_password);
 
         databaseUser = FirebaseDatabase.getInstance().getReference("user");
 
@@ -120,6 +116,14 @@ public class AccountFragment extends Fragment {
                 getActivity().finish();
             }
         });
+        editPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), ChangePassword.class));
+                getActivity().finish();
+            }
+        });
+
 
         // Inflate the layout for this fragment
         return view;

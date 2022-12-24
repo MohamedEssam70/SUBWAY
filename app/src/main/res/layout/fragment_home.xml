@@ -207,52 +207,6 @@
                         android:textStyle="bold"
                         app:backgroundTint="@color/colorButtonPrimary" />
                 </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/results"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="15dp"
-                    android:layout_marginTop="15dp"
-                    android:orientation="vertical">
-                    <TextView
-                        android:id="@+id/enterStation"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Enter Station: Elmatarya"
-                        android:textColor="@color/colorTextPrimary"
-                        android:textSize="12dp" />
-                    <TextView
-                        android:id="@+id/intersectionStation"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Intersection Station: El-Shohada"
-                        android:textColor="@color/colorTextPrimary"
-                        android:textSize="12dp" />
-                    <TextView
-                        android:id="@+id/exitStation"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Exit Station: Cairo University"
-                        android:textColor="@color/colorTextPrimary"
-                        android:textSize="12dp" />
-                    <TextView
-                        android:id="@+id/tripCost"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Trip Cost: 10 EGP"
-                        android:textColor="@color/colorTextPrimary"
-                        android:textSize="12dp" />
-                    <TextView
-                        android:id="@+id/tripDuration"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Estimation Trip Duration: 30 min"
-                        android:textColor="@color/colorTextPrimary"
-                        android:textSize="12dp" />
-                </LinearLayout>
-
-
             </LinearLayout>
 
 

@@ -5,41 +5,55 @@
     android:layout_height="match_parent">
 
     <TextView
+        android:textColor="@color/darkBlue"
+        android:textStyle="bold"
         android:id="@+id/header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
         android:text="Recommended Route"
+        android:textSize="20sp"
         tools:layout_editor_absoluteX="42dp"
-        tools:layout_editor_absoluteY="35dp"
-        android:layout_centerHorizontal="true"/>
+        tools:layout_editor_absoluteY="35dp" />
     <LinearLayout
+        android:id="@+id/noTransition"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_below="@+id/header">
+        android:layout_below="@+id/header"
+        android:layout_marginLeft="4dp">
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginBottom="4dp">
             <TextView
-                android:id="@+id/metroLine"
+                android:id="@+id/metroLine1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="TextView" />
+                android:text="TextView"
+                android:textSize="17sp"
+                android:layout_marginRight="10dp"/>
             <TextView
-                android:id="@+id/lineDirection"
+                android:id="@+id/lineDirection1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="TextView" />
+                android:text="TextView"
+                android:textSize="17sp"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginBottom="4dp">
             <TextView
-                android:id="@+id/stopsCount"
+                android:id="@+id/stopsCount1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -55,19 +69,121 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_baseline_directions_bus_24"/>
             <TextView
-                android:id="@+id/textView10"
+                android:id="@+id/start1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="TextView" />
+                android:text="TextView"
+                android:textSize="17sp"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_baseline_keyboard_arrow_right_24"/>
 
             <TextView
-                android:id="@+id/textView9"
+                android:id="@+id/end1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="17sp"
+                android:text="TextView" />
+        </LinearLayout>
+        <TextView
+            android:textColor="@color/colorTextEnable"
+            android:id="@+id/cost1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="EGP 10"
+            android:textSize="17sp"/>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/transition"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@+id/noTransition"
+        android:layout_marginLeft="4dp">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="4dp">
+            <TextView
+                android:id="@+id/metroLine2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="TextView"
+                android:textSize="17sp"
+                android:layout_marginRight="10dp"/>
+            <TextView
+                android:id="@+id/lineDirection2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="TextView"
+                android:textSize="17sp"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="4dp">
+            <TextView
+                android:id="@+id/stopsCount2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="TextView" />
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@+id/header">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_baseline_directions_bus_24"/>
+            <TextView
+                android:id="@+id/start2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="TextView"
+                android:textSize="17sp"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_baseline_keyboard_arrow_right_24"/>
+
+            <TextView
+                android:id="@+id/end2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="17sp"
+                android:text="TextView" />
+        </LinearLayout>
+        <TextView
+            android:textSize="17sp"
+            android:textColor="@color/colorTextEnable"
+            android:id="@+id/cost2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="EGP 10" />
     </LinearLayout>
 
+    <Button
+        android:id="@+id/finished"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="DONE"
+        android:layout_below="@+id/transition"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="6dp"/>
 </RelativeLayout>

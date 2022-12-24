@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment;
 
 import android.os.VibrationEffect;
 import android.os.Vibrator;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -53,9 +54,16 @@ public class HomeFragment extends Fragment {
             ,"Heliopolis","Haroun","El Ahram","Kolleyet El Banat","Stadium","Fair Zone","El Abassiya","Abdou Pasha","El Geish","Bab El Shaariya","Maspero","Safaa Hegazy","Kit-Kat","Tawfikia","Wadi El Nile","Gamet El Dowel","Boulak El Dakrour"
             ,"Sudan","Imbaba","El-Bohy ","El-Qawmia","Ring Road","Rod El Farag Corr."
 };
+    /**
+     * Use this factory method to create a new instance of
+     * plan trip xml initialization
+     */
     private AlertDialog.Builder dialogBuilder;
     private AlertDialog dialog;
-    private TextView startStation, startDirection, transitionStation, transitionDirection, endStation;
+    private TextView startStation, startDirection, transitionStation1, transitionStation2, transitionDirection, endStation, metroLine1, metroLine2, cost1, cost2, stops1, stops2;
+    private Button done;
+    private LinearLayout transtionLayout;
+
     private boolean NoShortageData;
     private String planTripStartStation;
     private String planTripEndStation;
@@ -175,28 +183,23 @@ public class HomeFragment extends Fragment {
         planTripBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NoShortageData = Authentication.checkRequiredFields(getActivity(),
-                        planTripStartStation, planTripEndStation);
-                if(NoShortageData){
+
+                if(!TextUtils.isEmpty(planTripStartStation) && !TextUtils.isEmpty(planTripEndStation)){
                     int startId = getStationIndex(planTripStartStation);
                     int endId = getStationIndex(planTripEndStation);
                     CheckPointHelper checkPointHelper = new CheckPointHelper(getContext());
                     String intersection = checkPointHelper.getInstersctionStation(getContext(), startId, endId);
-                    int count = checkPointHelper.passengerActivity(getContext(), startId, endId);
-                    int cost = checkPointHelper.getCost(count);
-                    Log.e("intersection", intersection);
-                    Log.e("count", String.valueOf(count));
-                    Log.e("cost", String.valueOf(cost));
-                    //Log.e("direction: ", getLineDirection(startId, endId));
                     if(intersection.equals("no switch needed")){
-                        //TODO: UI
+                        planTripPopup(startId, -1, endId);
                     }
                     else{
                         int switchId = getStationIndex(intersection);
-                        Log.e("first direction", getLineDirection(startId, switchId));
-                        Log.e("second direction", getLineDirection(switchId, endId));
-                        //TODO: UI
+                        planTripPopup(startId, switchId, endId);
+                        Log.e("done", "dibfshhgjfe");
                     }
+                }
+                else{
+                    Toast.makeText(getContext(), "fill field first", Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -248,8 +251,91 @@ public class HomeFragment extends Fragment {
             textTripStatus.setTextColor(ContextCompat.getColor(getContext(), R.color.colorTextDisable));
             circleTripStatus.setImageResource(R.drawable.ic_baseline_circle_gray_24);
         }
+
+
         // Inflate the layout for this fragment
         return view;
+    }
+    /**
+     * Plan trip pop up Handling
+     * **/
+    public void planTripPopup(int startId, int switchId, int endId){
+        CheckPointHelper checkPointHelper = new CheckPointHelper(getContext());
+        DBHelper dbHelper = new DBHelper(getContext());
+        dialogBuilder = new AlertDialog.Builder(getContext());
+        final View contactPopupView = getLayoutInflater().inflate(R.layout.popup, null);
+        if(switchId == -1){
+            String direction = getLineDirection(startId, endId);
+            int line = getCommonLine( dbHelper.getStation(startId).getMetroStationLines(),  dbHelper.getStation(endId).getMetroStationLines())[0];
+            int count = checkPointHelper.passengerActivity(getContext(), startId, endId);
+            int cost = checkPointHelper.getCost(count);
+
+            transtionLayout = contactPopupView.findViewById(R.id.transition);
+            transtionLayout.setVisibility(View.INVISIBLE);
+            startStation = contactPopupView.findViewById(R.id.start1);
+            startStation.setText(planTripStartStation);
+            startDirection = contactPopupView.findViewById(R.id.lineDirection1) ;
+            startDirection.setText("Direction: "+ direction);
+            transitionStation1 = contactPopupView.findViewById(R.id.end1) ;
+            transitionStation1.setText(planTripEndStation);
+            transitionDirection = contactPopupView.findViewById(R.id.lineDirection2);
+            metroLine1 = contactPopupView.findViewById(R.id.metroLine1);
+            metroLine1.setText("M"+String.valueOf(line));
+            cost1 = contactPopupView.findViewById(R.id.cost1);
+            cost1.setText("EGP "+ String.valueOf(cost));
+            stops1 = contactPopupView.findViewById(R.id.stopsCount1);
+            stops1.setText("Ride "+String.valueOf(count)+" stops");
+        }
+        else {
+            String direction1 = getLineDirection(startId, switchId);
+            String intersection = checkPointHelper.getInstersctionStation(getContext(), startId, endId);
+            int line1 = getCommonLine( dbHelper.getStation(startId).getMetroStationLines(),  dbHelper.getStation(switchId).getMetroStationLines())[0];
+            int count1 = checkPointHelper.passengerActivity(getContext(), startId, switchId);
+            int fcost = checkPointHelper.getCost(checkPointHelper.passengerActivity(getContext(), startId, endId));
+
+            transtionLayout = contactPopupView.findViewById(R.id.transition);
+            transtionLayout.setVisibility(View.VISIBLE);
+            startStation = contactPopupView.findViewById(R.id.start1);
+            startStation.setText(planTripStartStation);
+            startDirection = contactPopupView.findViewById(R.id.lineDirection1) ;
+            startDirection.setText("Direction: "+ direction1);
+            transitionStation1 = contactPopupView.findViewById(R.id.end1) ;
+            transitionStation1.setText(intersection);
+            metroLine1 = contactPopupView.findViewById(R.id.metroLine1);
+            metroLine1.setText("M"+String.valueOf(line1 + 1));
+            cost1 = contactPopupView.findViewById(R.id.cost1);
+            cost1.setText("");
+            stops1 = contactPopupView.findViewById(R.id.stopsCount1);
+            stops1.setText("Ride "+String.valueOf(count1)+" stops");
+
+
+            String direction2 = getLineDirection(switchId, endId);
+            int line2 = getCommonLine( dbHelper.getStation(switchId).getMetroStationLines(),  dbHelper.getStation(endId).getMetroStationLines())[0];
+            int count2 = checkPointHelper.passengerActivity(getContext(), switchId, endId);
+
+            transitionStation2 = contactPopupView.findViewById(R.id.start2);
+            transitionStation2.setText(intersection);
+            endStation = contactPopupView.findViewById(R.id.end2) ;
+            endStation.setText(planTripEndStation);
+            transitionDirection = contactPopupView.findViewById(R.id.lineDirection2);
+            transitionDirection.setText("Direction: "+ direction2);
+            metroLine2 = contactPopupView.findViewById(R.id.metroLine2);
+            metroLine2.setText("M"+String.valueOf(line2));
+            cost2 = contactPopupView.findViewById(R.id.cost2);
+            cost2.setText("EGP "+ String.valueOf(fcost));
+            stops2 = contactPopupView.findViewById(R.id.stopsCount2);
+            stops2.setText("Ride "+String.valueOf(count2)+" stops");
+        }
+        dialogBuilder.setView(contactPopupView);
+        dialog = dialogBuilder.create();
+        dialog.show();
+        done = contactPopupView.findViewById(R.id.finished);
+        done.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
     }
 
     private String  getLineDirection(int start, int end) {

@@ -302,7 +302,7 @@ public class HomeFragment extends Fragment {
             transitionStation1 = contactPopupView.findViewById(R.id.end1) ;
             transitionStation1.setText(intersection);
             metroLine1 = contactPopupView.findViewById(R.id.metroLine1);
-            metroLine1.setText("M"+String.valueOf(line1 + 1));
+            metroLine1.setText("M"+String.valueOf(line1));
             cost1 = contactPopupView.findViewById(R.id.cost1);
             cost1.setText("");
             stops1 = contactPopupView.findViewById(R.id.stopsCount1);

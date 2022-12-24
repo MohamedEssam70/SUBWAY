@@ -1,5 +1,6 @@
 package com.example.subway.Activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -204,6 +205,10 @@ public class Login extends AppCompatActivity {
                                         public void onComplete(@NonNull Task<Void> task) {
                                             if(task.isSuccessful()){
                                                 FirebaseDatabase.getInstance().getReference("user").child(MainActivity.userUID).child("passwordData").setValue(newPassword);
+                                                SharedPreferences sharedPreferences = getSharedPreferences("configurations", Context.MODE_PRIVATE);
+                                                SharedPreferences.Editor myEdit = sharedPreferences.edit();
+                                                myEdit.putString("user",null);
+                                                myEdit.apply();
                                                 Toast.makeText(Login.this, "password updated Successfully", Toast.LENGTH_SHORT).show();
                                             }
                                             else{

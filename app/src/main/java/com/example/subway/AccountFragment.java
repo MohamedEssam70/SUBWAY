@@ -120,7 +120,6 @@ public class AccountFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getActivity(), ChangePassword.class));
-                getActivity().finish();
             }
         });
 

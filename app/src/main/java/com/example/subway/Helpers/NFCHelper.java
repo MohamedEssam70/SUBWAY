@@ -18,6 +18,7 @@ import com.example.subway.CheckPoint;
 import com.example.subway.Trip;
 import com.example.subway.User;
 import com.example.subway.databinding.FragmentHomeBinding;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.nio.charset.Charset;
 import java.text.DateFormat;
@@ -152,6 +153,7 @@ public class NFCHelper {
                             SharedPreferences.Editor myEdit = sharedPreferences.edit();
                             myEdit.putString("user", user.toJson());
                             myEdit.apply();
+                            FirebaseDatabase.getInstance().getReference("user").child(MainActivity.userUID).child("balance").setValue(user.getBalance());
                         }
                         context.startActivity(new Intent(context, MainActivity.class));
                     }

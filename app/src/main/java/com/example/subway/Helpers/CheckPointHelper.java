@@ -94,6 +94,75 @@ public class CheckPointHelper {
         return stationsCount;
     }
 
+    public int passengerActivity(Context context, int startStationId, int endStationID){
+        List<Integer> startLines = new ArrayList<>();
+        List<Integer> endLines = new ArrayList<>();
+        boolean lineTransition;
+        int stationsCount = 0;
+        int start;
+        int end;
+        int mid1, mid2;
+        MetroStationModel startStation = dbHelper.getStation(startStationId);
+        MetroStationModel endStation = dbHelper.getStation(endStationID);
+        for (int i = 0; i < startStation.getMetroStationLines().size(); i++){
+            startLines.add(startStation.getMetroStationLines().get(i).line);
+        }
+        for (int i = 0; i < endStation.getMetroStationLines().size(); i++){
+            endLines.add(endStation.getMetroStationLines().get(i).line);
+        }
+        List<Integer> ss = startLines.stream().distinct().filter(endLines::contains).collect(Collectors.toList());
+        lineTransition = ss.isEmpty();
+        if (!lineTransition){
+            start = startStation.getMetroStationLines().stream().filter(
+                    item -> item.line == ss.get(0)).collect(Collectors.toList()).get(0).sort;
+            end = endStation.getMetroStationLines().stream().filter(
+                    item -> item.line == ss.get(0)).collect(Collectors.toList()).get(0).sort;
+            stationsCount = Math.abs(end - start);
+        } else {
+            List<Integer> intersection = getNearestIntersection(context, startLines, endLines, startStation);
+            MetroStationModel intersectionStation = dbHelper.getStation(intersection.get(0));
+            Log.e("/**/*/**/", intersectionStation.getMetroStationName());
+            start = startStation.getMetroStationLines().stream().filter(
+                    item -> item.line == intersection.get(1)).collect(Collectors.toList()).get(0).sort;
+            mid1 = intersectionStation.getMetroStationLines().stream().filter(
+                    item -> item.line == intersection.get(1)).collect(Collectors.toList()).get(0).sort;
+            mid2 = intersectionStation.getMetroStationLines().stream().filter(
+                    item -> item.line == intersection.get(2)).collect(Collectors.toList()).get(0).sort;
+            end = endStation.getMetroStationLines().stream().filter(
+                    item -> item.line == intersection.get(2)).collect(Collectors.toList()).get(0).sort;
+
+            Log.e("888888", start+" - "+mid1+" + "+mid2+" - "+end);
+
+            stationsCount = Math.abs(start - mid1) + Math.abs(mid2 - end);
+        }
+        return stationsCount;
+    }
+
+    public String getInstersctionStation(Context context, int startStationId, int endStationID) {
+        List<Integer> startLines = new ArrayList<>();
+        List<Integer> endLines = new ArrayList<>();
+        boolean lineTransition;
+        MetroStationModel startStation = dbHelper.getStation(startStationId);
+        MetroStationModel endStation = dbHelper.getStation(endStationID);
+        for (int i = 0; i < startStation.getMetroStationLines().size(); i++) {
+            startLines.add(startStation.getMetroStationLines().get(i).line);
+        }
+        for (int i = 0; i < endStation.getMetroStationLines().size(); i++) {
+            endLines.add(endStation.getMetroStationLines().get(i).line);
+        }
+        List<Integer> ss = startLines.stream().distinct().filter(endLines::contains).collect(Collectors.toList());
+        lineTransition = ss.isEmpty();
+        MetroStationModel intersectionStation = null;
+        if (!lineTransition) {
+            return "no switch needed";
+        } else {
+            List<Integer> intersection = getNearestIntersection(context, startLines, endLines, startStation);
+            intersectionStation = dbHelper.getStation(intersection.get(0));
+            Log.e("/**/*/**/", intersectionStation.getMetroStationName());
+        }
+        return intersectionStation.getMetroStationName();
+    }
+
 
     /**
      * Name: getNearestIntersection

@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -14,17 +13,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.subway.Activity.Login;
 import com.example.subway.Activity.MainActivity;
 import com.example.subway.Activity.TripHistory;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -95,35 +90,24 @@ public class AccountFragment extends Fragment {
         TextView emailTxt = (TextView) view.findViewById(R.id.email);
         TextView phoneNumberTxt = (TextView) view.findViewById(R.id.phoneNumber);
         TextView nationalIdTxt = (TextView) view.findViewById(R.id.nationalID);
+        TextView editPassword = (TextView) view.findViewById(R.id.edit_password);
 
         databaseUser = FirebaseDatabase.getInstance().getReference("user");
-        databaseUser.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists()){
-                    firstName = snapshot.child(userUID).child("firstName").getValue(String.class);
-                    lastName = snapshot.child(userUID).child("lastName").getValue(String.class);
-                    email = snapshot.child(userUID).child("email").getValue(String.class);
-                    phoneNumber = snapshot.child(userUID).child("phoneNumberData").getValue(String.class);
-                    nationalId = snapshot.child(userUID).child("nationalIdData").getValue(String.class);
-                    userNameTxt.setText("Hey, "+firstName+" "+lastName);
-                    emailTxt.setText(email);
-                    nationalIdTxt.setText(nationalId);
-                    phoneNumberTxt.setText(phoneNumber);
-                }
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(getActivity(), "Failed to get Data", Toast.LENGTH_SHORT).show();
-            }
-
-        });
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("configurations", Context.MODE_PRIVATE);
+        String s = sharedPreferences.getString("user", null);
+        if(s != null){
+            User user = new User();
+            user.fromJson(s);
+             userNameTxt.setText(user.getFirstName()+ " "+ user.getLastName());
+             emailTxt.setText(user.getEmail());
+             phoneNumberTxt.setText(user.getPhoneNumberData());
+             nationalIdTxt.setText(user.getNationalIdData());
+        }
 
         signOutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferences sharedPreferences = getContext().getSharedPreferences("configurations", Context.MODE_PRIVATE);
                 SharedPreferences.Editor myEdit = sharedPreferences.edit();
                 myEdit.putString("user",null);
                 myEdit.apply();
@@ -132,6 +116,13 @@ public class AccountFragment extends Fragment {
                 getActivity().finish();
             }
         });
+        editPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), ChangePassword.class));
+            }
+        });
+
 
         // Inflate the layout for this fragment
         return view;

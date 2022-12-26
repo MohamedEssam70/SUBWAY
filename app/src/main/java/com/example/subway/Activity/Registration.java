@@ -37,6 +37,7 @@ public class Registration extends AppCompatActivity{
     private boolean NoShortageData;
     private FirebaseAuth auth;
     private DatabaseReference reference;
+    private DatabaseReference phoneReference;
 
     private LinearLayout registrationProgress;
 
@@ -100,7 +101,7 @@ public class Registration extends AppCompatActivity{
           * * **/
          auth = FirebaseAuth.getInstance();
          reference = FirebaseDatabase.getInstance().getReference("user");
-
+         phoneReference = FirebaseDatabase.getInstance().getReference("phoneNumber");
         /**
          * Disable Registration Background Process Action
          * **/
@@ -161,6 +162,7 @@ public class Registration extends AppCompatActivity{
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()) {
+                    phoneReference.child(VerifyPhoneNumber.phoneUid).setValue(auth.getUid());
                     double balance = 0.0;
                     User userStore = new User(firstNameData , lastNameData , nationalIdData , passwordData , phoneNumberData , emailData, balance);
                     reference.child(auth.getUid()).setValue(userStore).addOnSuccessListener(new OnSuccessListener<Void>() {

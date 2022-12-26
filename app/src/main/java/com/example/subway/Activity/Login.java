@@ -1,8 +1,10 @@
 package com.example.subway.Activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,10 +19,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.subway.Helpers.Authentication;
 import com.example.subway.R;
 import com.example.subway.User;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.EmailAuthCredential;
+import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -45,6 +53,10 @@ public class Login extends AppCompatActivity {
     private String loginIdData;
     private String loginPasswordData;
 
+    private String resetNationalId;
+    private String oldPassword;
+    private String newPassword;
+
     // to be tested for preventing login from multiple devices
     /*@Override
         protected void onStart() {
@@ -59,6 +71,9 @@ public class Login extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
+        Intent i = getIntent();
+
+
         /**
          * Select LinerView of ProgressBar
          * **/
@@ -87,7 +102,19 @@ public class Login extends AppCompatActivity {
          * Disable Login Background Process Action
          * **/
         onCollectData();
-
+        /**
+         * Reset Process
+         * **/
+        if(i.hasExtra("nationalId")){
+            resetNationalId = getIntent().getStringExtra("nationalId");
+            Log.e("nationalId", resetNationalId);
+            oldPassword = getIntent().getStringExtra("oldPassword");
+            Log.e("nationalId", oldPassword);
+            newPassword = getIntent().getStringExtra("newPassword");
+            Log.e("nationalId", newPassword);
+            Log.e("intentRecived","recived");
+            loginUserToResetPassword(resetNationalId, oldPassword, newPassword);
+        }
         /**
          * Login Process
          * **/
@@ -162,7 +189,46 @@ public class Login extends AppCompatActivity {
             }
         });
     }
+    public void loginUserToResetPassword(String loginEmail, String loginPassword, String newPassword) {
+        String loginIDEmail = loginEmail + "@metro.eg";
+        auth.signInWithEmailAndPassword(loginIDEmail , loginPassword).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                    @Override
+                    public void onSuccess(AuthResult authResult) {
+                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                        AuthCredential credential = EmailAuthProvider.getCredential(loginIDEmail, loginPassword);
+                        user.reauthenticate(credential).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if(task.isSuccessful()){
+                                    user.updatePassword(newPassword).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if(task.isSuccessful()){
+                                                FirebaseDatabase.getInstance().getReference("user").child(MainActivity.userUID).child("passwordData").setValue(newPassword);
+                                                SharedPreferences sharedPreferences = getSharedPreferences("configurations", Context.MODE_PRIVATE);
+                                                SharedPreferences.Editor myEdit = sharedPreferences.edit();
+                                                myEdit.putString("user",null);
+                                                myEdit.apply();
+                                                Toast.makeText(Login.this, "password updated Successfully", Toast.LENGTH_SHORT).show();
+                                            }
+                                            else{
+                                                Toast.makeText(Login.this, "can't update Password", Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+                                    });
 
+                                }
+                            }
+                        });
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(Login.this ,"error can't update passwoard",Toast.LENGTH_SHORT ).show();
+                    }
+                });
+    }
     private void onProgress(){
         loginProgress.setVisibility(View.VISIBLE);
         loginEmail.setEnabled(false);

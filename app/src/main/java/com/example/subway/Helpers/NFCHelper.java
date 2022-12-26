@@ -13,10 +13,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.subway.Activity.MainActivity;
+import com.example.subway.AddBalance;
 import com.example.subway.CheckPoint;
 import com.example.subway.Trip;
 import com.example.subway.User;
 import com.example.subway.databinding.FragmentHomeBinding;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.nio.charset.Charset;
 import java.text.DateFormat;
@@ -102,6 +104,7 @@ public class NFCHelper {
             myEditor.putString("check_point", _checkPointJson);
             myEditor.apply();
             Toast.makeText(context, "Trip Start Successfully", Toast.LENGTH_SHORT).show();
+            context.startActivity(new Intent(context, MainActivity.class));
             Log.e("-*-**-*-*-*-", "Trip Start");
         } else if (!checkPoint.isEnter() && checkPointJson == null){
             // This Case User don't have active trip but sign in from exit gate
@@ -115,8 +118,6 @@ public class NFCHelper {
             if(userJson != null) {
                 User user = new User();
                 user.fromJson(userJson);
-                // todo remove
-                user.setBalance(20.0);
                 try {
                     CheckPoint Enter = new CheckPoint();
                     Enter.fromJson(sharedPreferences.getString("check_point", null));
@@ -136,14 +137,25 @@ public class NFCHelper {
                         //Add new Trip
                         Date date = new Date();
                         DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(context);
-                        Trip trip = new Trip(null, checkPointHelper.getStationName(Enter), checkPointHelper.getStationName(Exit), String.valueOf(cost), dateFormat.format(date));
-
+                        Trip trip = new Trip();
+                        trip.addTrip(dateFormat.format(date), checkPointHelper.getStationName(Enter), checkPointHelper.getStationName(Exit), String.valueOf(cost));
                         //clear sharedPreference
                         SharedPreferences.Editor myEditor = sharedPreferences.edit();
                         myEditor.putString("check_point", null);
                         myEditor.apply();
                         Toast.makeText(context, "Trip End Successfully", Toast.LENGTH_SHORT).show();
                         //TODO: Update user balance + Reload MainActivity
+                        String s = sharedPreferences.getString("user", null);
+                        if(s != null){
+                            User _user = new User();
+                            user.fromJson(s);
+                            user.setBalance(user.getBalance() - cost);
+                            SharedPreferences.Editor myEdit = sharedPreferences.edit();
+                            myEdit.putString("user", user.toJson());
+                            myEdit.apply();
+                            FirebaseDatabase.getInstance().getReference("user").child(MainActivity.userUID).child("balance").setValue(user.getBalance());
+                        }
+                        context.startActivity(new Intent(context, MainActivity.class));
                     }
                 } catch (Exception e){
                     Log.e("-*--*-*-*-*-*", e.getMessage());

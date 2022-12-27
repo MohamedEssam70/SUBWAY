@@ -15,6 +15,51 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Subway">
+
+        <activity
+            android:name=".Activity.Splash"
+            android:exported="true"
+            android:theme="@style/Theme.Splash">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Activity.Onboarding"
+            android:exported="true"
+            android:theme="@style/Theme.Onboarding">
+        </activity>
+        <activity
+            android:name=".Activity.StartupScreen"
+            android:exported="true"
+            android:theme="@style/Theme.Onboarding">
+        </activity>
+        <activity
+            android:name=".Activity.Login"
+            android:exported="true"
+            android:theme="@style/Theme.LoginNadRegistration">
+        </activity>
+        <activity
+            android:name=".Activity.Registration"
+            android:exported="true"
+            android:theme="@style/Theme.LoginNadRegistration">
+        </activity>
+        <activity
+            android:name=".Activity.ResetPasswordRequest"
+            android:exported="true"
+            android:theme="@style/Theme.LoginNadRegistration">
+        </activity>
+        <activity
+            android:name=".Activity.ResetPassword"
+            android:exported="true"
+            android:theme="@style/Theme.LoginNadRegistration">
+        </activity>
+        <activity
+            android:name=".Activity.VerifyPhoneNumber"
+            android:exported="true"
+            android:theme="@style/Theme.LoginNadRegistration">
+        </activity>
         <activity
             android:name=".ChangePassword"
             android:exported="false">
@@ -23,34 +68,14 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".AddBalance"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".Activity.Splash"
-            android:exported="true"
-            android:theme="@style/Theme.Splash">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
             android:name=".Activity.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.nfc.action.TAG_DISCOVERED" />
                 <action android:name="android.nfc.action.NDEF_DISCOVERED" />
-
                 <category android:name="android.intent.category.DEFAULT" />
-
                 <data android:mimeType="text/plain" />
             </intent-filter>
-
             <meta-data
                 android:name="android.nfc.action.TECH_DISCOVERED"
                 android:resource="@xml/nfc_tech_filter" />
@@ -63,33 +88,13 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".Activity.Onboarding"
-            android:exported="true"
-            android:theme="@style/Theme.Onboarding" />
-        <activity
-            android:name=".Activity.StartupScreen"
-            android:exported="true"
-            android:theme="@style/Theme.Onboarding" />
-        <activity
-            android:name=".Activity.Login"
-            android:exported="true"
-            android:theme="@style/Theme.LoginNadRegistration" />
-        <activity
-            android:name=".Activity.Registration"
-            android:exported="true"
-            android:theme="@style/Theme.LoginNadRegistration" />
-        <activity
-            android:name=".Activity.ResetPasswordRequest"
-            android:exported="true"
-            android:theme="@style/Theme.LoginNadRegistration" />
-        <activity
-            android:name=".Activity.ResetPassword"
-            android:exported="true"
-            android:theme="@style/Theme.LoginNadRegistration" />
-        <activity
-            android:name=".Activity.VerifyPhoneNumber"
-            android:exported="true"
-            android:theme="@style/Theme.LoginNadRegistration" />
+            android:name=".AddBalance"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
     </application>
 
 </manifest>

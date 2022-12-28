@@ -137,7 +137,7 @@ public class HomeFragment extends Fragment {
             User user = new User();
             user.fromJson(s);
             currentBalance = user.getBalance();
-            balanceTxt.setText(String.valueOf(currentBalance));
+            balanceTxt.setText(String.valueOf(currentBalance) + " EGP");
         }
 
         balanceTxt.setOnClickListener(new View.OnClickListener() {
